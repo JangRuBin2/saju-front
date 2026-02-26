@@ -1,0 +1,116 @@
+{
+  "Common": {
+    "appName": "사주명리",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "back": "뒤로",
+    "submit": "확인",
+    "cancel": "취소",
+    "save": "저장",
+    "share": "공유",
+    "male": "남성",
+    "female": "여성",
+    "unknown": "모름"
+  },
+  "Nav": {
+    "home": "홈",
+    "saju": "사주",
+    "today": "오늘의 운세",
+    "compatibility": "궁합",
+    "mypage": "MY"
+  },
+  "Home": {
+    "title": "사주명리",
+    "subtitle": "당신의 운명을 밝혀줄 동양 철학의 지혜",
+    "sajuCard": "사주팔자",
+    "sajuDesc": "생년월일시로 보는 나의 사주",
+    "todayCard": "오늘의 운세",
+    "todayDesc": "오늘 하루의 운세를 확인하세요",
+    "compatCard": "궁합",
+    "compatDesc": "두 사람의 궁합을 알아보세요",
+    "myCard": "MY",
+    "myDesc": "내 정보 관리"
+  },
+  "SajuForm": {
+    "title": "사주 정보 입력",
+    "birthDate": "생년월일",
+    "birthYear": "년",
+    "birthMonth": "월",
+    "birthDay": "일",
+    "birthTime": "태어난 시간",
+    "timeUnknown": "모름",
+    "gender": "성별",
+    "genderMale": "남성",
+    "genderFemale": "여성",
+    "calendarType": "양력/음력",
+    "solar": "양력",
+    "lunar": "음력",
+    "analyze": "사주 분석하기",
+    "validation": {
+      "yearRequired": "년도를 입력하세요",
+      "monthRequired": "월을 선택하세요",
+      "dayRequired": "일을 선택하세요",
+      "genderRequired": "성별을 선택하세요"
+    }
+  },
+  "SajuResult": {
+    "title": "사주 분석 결과",
+    "loading": "사주를 분석하고 있습니다...",
+    "loadingDesc": "잠시만 기다려 주세요",
+    "fourPillars": "사주팔자",
+    "year": "년주",
+    "month": "월주",
+    "day": "일주",
+    "time": "시주",
+    "heavenlyStem": "천간",
+    "earthlyBranch": "지지",
+    "ohengTitle": "오행 분석",
+    "wood": "목(木)",
+    "fire": "화(火)",
+    "earth": "토(土)",
+    "metal": "금(金)",
+    "water": "수(水)",
+    "interpretation": "해석",
+    "newAnalysis": "새로운 분석",
+    "dayMaster": "일간"
+  },
+  "Today": {
+    "title": "오늘의 운세",
+    "subtitle": "오늘의 운세를 확인해보세요",
+    "checkFortune": "운세 확인하기",
+    "overallLuck": "종합운",
+    "moneyLuck": "금전운",
+    "loveLuck": "애정운",
+    "healthLuck": "건강운",
+    "workLuck": "직장운",
+    "luckyColor": "행운의 색",
+    "luckyNumber": "행운의 숫자",
+    "advice": "오늘의 조언"
+  },
+  "Compatibility": {
+    "title": "궁합 보기",
+    "subtitle": "두 사람의 궁합을 알아보세요",
+    "person1": "첫 번째 사람",
+    "person2": "두 번째 사람",
+    "checkCompat": "궁합 확인하기",
+    "score": "궁합 점수",
+    "analysis": "궁합 분석",
+    "harmony": "조화",
+    "conflict": "갈등",
+    "advice": "조언"
+  },
+  "MyPage": {
+    "title": "마이페이지",
+    "subtitle": "내 정보를 관리하세요",
+    "savedResults": "저장된 결과",
+    "noResults": "저장된 결과가 없습니다",
+    "comingSoon": "준비 중입니다"
+  },
+  "LocaleSwitcher": {
+    "ko": "한국어",
+    "en": "English",
+    "ja": "日本語",
+    "zh": "中文"
+  }
+}

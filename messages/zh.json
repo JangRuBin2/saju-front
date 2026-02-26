@@ -1,0 +1,116 @@
+{
+  "Common": {
+    "appName": "四柱命理",
+    "loading": "加载中...",
+    "error": "发生了错误",
+    "retry": "重试",
+    "back": "返回",
+    "submit": "确认",
+    "cancel": "取消",
+    "save": "保存",
+    "share": "分享",
+    "male": "男性",
+    "female": "女性",
+    "unknown": "未知"
+  },
+  "Nav": {
+    "home": "首页",
+    "saju": "四柱",
+    "today": "今日运势",
+    "compatibility": "合婚",
+    "mypage": "我的"
+  },
+  "Home": {
+    "title": "四柱命理",
+    "subtitle": "照亮您命运的东方哲学智慧",
+    "sajuCard": "四柱八字",
+    "sajuDesc": "根据出生日期和时间看您的四柱",
+    "todayCard": "今日运势",
+    "todayDesc": "查看今天的运势",
+    "compatCard": "合婚",
+    "compatDesc": "了解两个人的缘分",
+    "myCard": "我的",
+    "myDesc": "管理我的信息"
+  },
+  "SajuForm": {
+    "title": "输入出生信息",
+    "birthDate": "出生日期",
+    "birthYear": "年",
+    "birthMonth": "月",
+    "birthDay": "日",
+    "birthTime": "出生时间",
+    "timeUnknown": "未知",
+    "gender": "性别",
+    "genderMale": "男性",
+    "genderFemale": "女性",
+    "calendarType": "历法类型",
+    "solar": "阳历",
+    "lunar": "阴历",
+    "analyze": "分析四柱",
+    "validation": {
+      "yearRequired": "请输入年份",
+      "monthRequired": "请选择月份",
+      "dayRequired": "请选择日期",
+      "genderRequired": "请选择性别"
+    }
+  },
+  "SajuResult": {
+    "title": "四柱分析结果",
+    "loading": "正在分析您的四柱...",
+    "loadingDesc": "请稍候",
+    "fourPillars": "四柱八字",
+    "year": "年柱",
+    "month": "月柱",
+    "day": "日柱",
+    "time": "时柱",
+    "heavenlyStem": "天干",
+    "earthlyBranch": "地支",
+    "ohengTitle": "五行分析",
+    "wood": "木",
+    "fire": "火",
+    "earth": "土",
+    "metal": "金",
+    "water": "水",
+    "interpretation": "解读",
+    "newAnalysis": "新的分析",
+    "dayMaster": "日主"
+  },
+  "Today": {
+    "title": "今日运势",
+    "subtitle": "查看今天的运势",
+    "checkFortune": "查看运势",
+    "overallLuck": "综合运",
+    "moneyLuck": "财运",
+    "loveLuck": "爱情运",
+    "healthLuck": "健康运",
+    "workLuck": "事业运",
+    "luckyColor": "幸运色",
+    "luckyNumber": "幸运数字",
+    "advice": "今日建议"
+  },
+  "Compatibility": {
+    "title": "合婚测试",
+    "subtitle": "了解两个人的缘分",
+    "person1": "第一个人",
+    "person2": "第二个人",
+    "checkCompat": "查看合婚",
+    "score": "合婚分数",
+    "analysis": "分析",
+    "harmony": "和谐",
+    "conflict": "冲突",
+    "advice": "建议"
+  },
+  "MyPage": {
+    "title": "我的页面",
+    "subtitle": "管理您的信息",
+    "savedResults": "保存的结果",
+    "noResults": "没有保存的结果",
+    "comingSoon": "即将推出"
+  },
+  "LocaleSwitcher": {
+    "ko": "韩语",
+    "en": "英语",
+    "ja": "日语",
+    "zh": "中文"
+  }
+}

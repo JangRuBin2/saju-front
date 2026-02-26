@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:next-intl.dev)",
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx next:*)",
+      "Bash(npx vercel:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(mv:*)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}

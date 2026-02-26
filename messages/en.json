@@ -1,0 +1,116 @@
+{
+  "Common": {
+    "appName": "Saju Myeongri",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "share": "Share",
+    "male": "Male",
+    "female": "Female",
+    "unknown": "Unknown"
+  },
+  "Nav": {
+    "home": "Home",
+    "saju": "Saju",
+    "today": "Today",
+    "compatibility": "Match",
+    "mypage": "MY"
+  },
+  "Home": {
+    "title": "Saju Myeongri",
+    "subtitle": "Wisdom of Eastern philosophy to illuminate your destiny",
+    "sajuCard": "Four Pillars",
+    "sajuDesc": "Your destiny based on birth date and time",
+    "todayCard": "Daily Fortune",
+    "todayDesc": "Check your fortune for today",
+    "compatCard": "Compatibility",
+    "compatDesc": "Find out the compatibility between two people",
+    "myCard": "MY",
+    "myDesc": "Manage my information"
+  },
+  "SajuForm": {
+    "title": "Enter Birth Information",
+    "birthDate": "Birth Date",
+    "birthYear": "Year",
+    "birthMonth": "Month",
+    "birthDay": "Day",
+    "birthTime": "Birth Time",
+    "timeUnknown": "Unknown",
+    "gender": "Gender",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "calendarType": "Calendar Type",
+    "solar": "Solar",
+    "lunar": "Lunar",
+    "analyze": "Analyze Saju",
+    "validation": {
+      "yearRequired": "Please enter the year",
+      "monthRequired": "Please select the month",
+      "dayRequired": "Please select the day",
+      "genderRequired": "Please select gender"
+    }
+  },
+  "SajuResult": {
+    "title": "Saju Analysis Result",
+    "loading": "Analyzing your Saju...",
+    "loadingDesc": "Please wait a moment",
+    "fourPillars": "Four Pillars",
+    "year": "Year Pillar",
+    "month": "Month Pillar",
+    "day": "Day Pillar",
+    "time": "Time Pillar",
+    "heavenlyStem": "Heavenly Stem",
+    "earthlyBranch": "Earthly Branch",
+    "ohengTitle": "Five Elements Analysis",
+    "wood": "Wood",
+    "fire": "Fire",
+    "earth": "Earth",
+    "metal": "Metal",
+    "water": "Water",
+    "interpretation": "Interpretation",
+    "newAnalysis": "New Analysis",
+    "dayMaster": "Day Master"
+  },
+  "Today": {
+    "title": "Daily Fortune",
+    "subtitle": "Check your fortune for today",
+    "checkFortune": "Check Fortune",
+    "overallLuck": "Overall",
+    "moneyLuck": "Finance",
+    "loveLuck": "Love",
+    "healthLuck": "Health",
+    "workLuck": "Career",
+    "luckyColor": "Lucky Color",
+    "luckyNumber": "Lucky Number",
+    "advice": "Today's Advice"
+  },
+  "Compatibility": {
+    "title": "Compatibility Check",
+    "subtitle": "Find out the compatibility between two people",
+    "person1": "First Person",
+    "person2": "Second Person",
+    "checkCompat": "Check Compatibility",
+    "score": "Compatibility Score",
+    "analysis": "Analysis",
+    "harmony": "Harmony",
+    "conflict": "Conflict",
+    "advice": "Advice"
+  },
+  "MyPage": {
+    "title": "My Page",
+    "subtitle": "Manage your information",
+    "savedResults": "Saved Results",
+    "noResults": "No saved results",
+    "comingSoon": "Coming Soon"
+  },
+  "LocaleSwitcher": {
+    "ko": "Korean",
+    "en": "English",
+    "ja": "Japanese",
+    "zh": "Chinese"
+  }
+}

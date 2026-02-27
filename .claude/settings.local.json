@@ -13,7 +13,11 @@
       "Bash(node:*)",
       "Bash(npm:*)",
       "Bash(mv:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(vercel:*)",
+      "Bash(xargs grep:*)",
+      "Bash(ls:*)",
+      "Bash(git:*)"
     ]
   }
 }

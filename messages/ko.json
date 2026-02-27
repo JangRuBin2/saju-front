@@ -103,9 +103,62 @@
   "MyPage": {
     "title": "마이페이지",
     "subtitle": "내 정보를 관리하세요",
+    "profile": "프로필 관리",
+    "paymentHistory": "결제 내역",
+    "subscription": "구독 관리",
     "savedResults": "저장된 결과",
     "noResults": "저장된 결과가 없습니다",
+    "noPayments": "결제 내역이 없습니다",
+    "loading": "로딩 중...",
     "comingSoon": "준비 중입니다"
+  },
+  "Auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "loginTitle": "사주명리에 오신 것을 환영합니다",
+    "loginSubtitle": "소셜 로그인으로 간편하게 시작하세요",
+    "kakaoLogin": "카카오로 로그인",
+    "naverLogin": "네이버로 로그인",
+    "googleLogin": "Google로 로그인",
+    "mypage": "마이페이지",
+    "payment": "결제 관리",
+    "termsNotice": "로그인 시 서비스 이용약관 및 개인정보 처리방침에 동의하는 것으로 간주됩니다."
+  },
+  "Payment": {
+    "title": "프리미엄 구독",
+    "subtitle": "프리미엄으로 모든 기능을 이용하세요",
+    "freePlan": "무료",
+    "premiumPlan": "프리미엄",
+    "monthlyPrice": "월 9,900원",
+    "subscribe": "구독하기",
+    "currentPlan": "현재 플랜",
+    "features": {
+      "sajuReading": "사주 풀이",
+      "dailyFortune": "오늘의 운세",
+      "compatibility": "궁합 분석",
+      "monthlyFortune": "월간 운세",
+      "sinsal": "신살 분석",
+      "unlimited": "무제한 이용"
+    },
+    "free1": "사주 풀이 1일 1회",
+    "free2": "오늘의 운세 1일 1회",
+    "free3": "궁합 1일 1회",
+    "premium1": "모든 기능 무제한",
+    "premium2": "월간 운세 이용 가능",
+    "premium3": "신살 분석 이용 가능",
+    "success": "결제 완료",
+    "successMessage": "프리미엄 구독이 시작되었습니다",
+    "fail": "결제 실패",
+    "failMessage": "결제 처리 중 오류가 발생했습니다",
+    "goHome": "홈으로 이동",
+    "retry": "다시 시도"
+  },
+  "Usage": {
+    "limitReached": "일일 무료 이용 한도에 도달했습니다",
+    "premiumRequired": "프리미엄 전용 기능입니다",
+    "loginRequired": "로그인이 필요합니다",
+    "upgradeToPremium": "프리미엄으로 업그레이드",
+    "remainingToday": "오늘 남은 횟수: {count}회"
   },
   "LocaleSwitcher": {
     "ko": "한국어",

@@ -1,8 +1,47 @@
-import createMiddleware from "next-intl/middleware";
+import { NextRequest, NextResponse } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./src/i18n/routing";
 
-export default createMiddleware(routing);
+const intlMiddleware = createIntlMiddleware(routing);
+
+const PROTECTED_ROUTES = ["/mypage", "/payment"];
+const AUTH_ROUTES = ["/login"];
+
+function getPathnameWithoutLocale(pathname: string): string {
+  const localePattern = /^\/(ko|en|ja|zh)(\/|$)/;
+  return pathname.replace(localePattern, "/");
+}
+
+function getLocaleFromPathname(pathname: string): string {
+  const match = pathname.match(/^\/(ko|en|ja|zh)(\/|$)/);
+  return match ? match[1] : "ko";
+}
+
+export default async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const pathnameWithoutLocale = getPathnameWithoutLocale(pathname);
+
+  // Check for auth session cookie (next-auth session token)
+  const sessionToken =
+    request.cookies.get("__Secure-authjs.session-token") ||
+    request.cookies.get("authjs.session-token");
+  const isAuthenticated = !!sessionToken;
+
+  // Redirect authenticated users away from login page
+  if (isAuthenticated && AUTH_ROUTES.some((r) => pathnameWithoutLocale.startsWith(r))) {
+    const locale = getLocaleFromPathname(pathname);
+    return NextResponse.redirect(new URL(`/${locale}`, request.url));
+  }
+
+  // Redirect unauthenticated users from protected routes to login
+  if (!isAuthenticated && PROTECTED_ROUTES.some((r) => pathnameWithoutLocale.startsWith(r))) {
+    const locale = getLocaleFromPathname(pathname);
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  }
+
+  return intlMiddleware(request);
+}
 
 export const config = {
-  matcher: ["/((?!backend-api|api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

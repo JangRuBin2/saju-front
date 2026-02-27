@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { getDailyFortuneAction } from "@/lib/server/actions";
+import { getMonthlyFortuneAction } from "@/lib/server/actions";
 import type { FortuneRequest, FortuneResponse } from "@/types/api";
 
-interface UseDailyFortuneReturn {
+interface UseMonthlyFortuneReturn {
   fortune: FortuneResponse | null;
   isLoading: boolean;
   error: string | null;
@@ -13,7 +13,7 @@ interface UseDailyFortuneReturn {
   reset: () => void;
 }
 
-export function useDailyFortune(): UseDailyFortuneReturn {
+export function useMonthlyFortune(): UseMonthlyFortuneReturn {
   const [fortune, setFortune] = useState<FortuneResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +31,7 @@ export function useDailyFortune(): UseDailyFortuneReturn {
     setError(null);
     setErrorType(null);
     try {
-      const result = await getDailyFortuneAction(request);
+      const result = await getMonthlyFortuneAction(request);
       if (result.success) {
         setFortune(result.data);
       } else {
@@ -40,7 +40,7 @@ export function useDailyFortune(): UseDailyFortuneReturn {
       }
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : "Failed to fetch fortune";
+        err instanceof Error ? err.message : "Failed to fetch monthly fortune";
       setError(message);
       setErrorType("server_error");
     } finally {

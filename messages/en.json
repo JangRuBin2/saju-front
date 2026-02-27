@@ -103,9 +103,62 @@
   "MyPage": {
     "title": "My Page",
     "subtitle": "Manage your information",
+    "profile": "Profile",
+    "paymentHistory": "Payment History",
+    "subscription": "Subscription",
     "savedResults": "Saved Results",
     "noResults": "No saved results",
+    "noPayments": "No payment history",
+    "loading": "Loading...",
     "comingSoon": "Coming Soon"
+  },
+  "Auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "loginTitle": "Welcome to Saju Myeongri",
+    "loginSubtitle": "Start easily with social login",
+    "kakaoLogin": "Login with Kakao",
+    "naverLogin": "Login with Naver",
+    "googleLogin": "Login with Google",
+    "mypage": "My Page",
+    "payment": "Payment",
+    "termsNotice": "By logging in, you agree to our Terms of Service and Privacy Policy."
+  },
+  "Payment": {
+    "title": "Premium Subscription",
+    "subtitle": "Unlock all features with Premium",
+    "freePlan": "Free",
+    "premiumPlan": "Premium",
+    "monthlyPrice": "$9.99/month",
+    "subscribe": "Subscribe",
+    "currentPlan": "Current Plan",
+    "features": {
+      "sajuReading": "Saju Reading",
+      "dailyFortune": "Daily Fortune",
+      "compatibility": "Compatibility",
+      "monthlyFortune": "Monthly Fortune",
+      "sinsal": "Sinsal Analysis",
+      "unlimited": "Unlimited Access"
+    },
+    "free1": "Saju Reading 1x per day",
+    "free2": "Daily Fortune 1x per day",
+    "free3": "Compatibility 1x per day",
+    "premium1": "All features unlimited",
+    "premium2": "Monthly Fortune available",
+    "premium3": "Sinsal Analysis available",
+    "success": "Payment Complete",
+    "successMessage": "Your premium subscription has started",
+    "fail": "Payment Failed",
+    "failMessage": "An error occurred during payment",
+    "goHome": "Go Home",
+    "retry": "Try Again"
+  },
+  "Usage": {
+    "limitReached": "Daily free usage limit reached",
+    "premiumRequired": "Premium feature only",
+    "loginRequired": "Login required",
+    "upgradeToPremium": "Upgrade to Premium",
+    "remainingToday": "Remaining today: {count}"
   },
   "LocaleSwitcher": {
     "ko": "Korean",

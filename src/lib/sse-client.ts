@@ -12,8 +12,7 @@ export function streamSajuReading(
   callbacks: SSECallbacks
 ): AbortController {
   const controller = new AbortController();
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "/backend-api";
-  const url = `${apiBase}/saju/reading`;
+  const url = "/api/saju/reading";
 
   const body: SajuReadingRequest = {
     ...request,

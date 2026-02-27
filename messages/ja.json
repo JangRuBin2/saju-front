@@ -103,9 +103,62 @@
   "MyPage": {
     "title": "マイページ",
     "subtitle": "情報を管理しましょう",
+    "profile": "プロフィール管理",
+    "paymentHistory": "お支払い履歴",
+    "subscription": "サブスクリプション管理",
     "savedResults": "保存された結果",
     "noResults": "保存された結果はありません",
+    "noPayments": "お支払い履歴はありません",
+    "loading": "読み込み中...",
     "comingSoon": "準備中です"
+  },
+  "Auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "loginTitle": "四柱命理へようこそ",
+    "loginSubtitle": "ソーシャルログインで簡単に始めましょう",
+    "kakaoLogin": "カカオでログイン",
+    "naverLogin": "Naverでログイン",
+    "googleLogin": "Googleでログイン",
+    "mypage": "マイページ",
+    "payment": "お支払い",
+    "termsNotice": "ログインすることで、利用規約とプライバシーポリシーに同意したものとみなされます。"
+  },
+  "Payment": {
+    "title": "プレミアム購読",
+    "subtitle": "プレミアムですべての機能をご利用ください",
+    "freePlan": "無料",
+    "premiumPlan": "プレミアム",
+    "monthlyPrice": "月額990円",
+    "subscribe": "購読する",
+    "currentPlan": "現在のプラン",
+    "features": {
+      "sajuReading": "四柱占い",
+      "dailyFortune": "今日の運勢",
+      "compatibility": "相性診断",
+      "monthlyFortune": "月間運勢",
+      "sinsal": "神殺分析",
+      "unlimited": "無制限利用"
+    },
+    "free1": "四柱占い 1日1回",
+    "free2": "今日の運勢 1日1回",
+    "free3": "相性 1日1回",
+    "premium1": "すべての機能が無制限",
+    "premium2": "月間運勢が利用可能",
+    "premium3": "神殺分析が利用可能",
+    "success": "お支払い完了",
+    "successMessage": "プレミアム購読が開始されました",
+    "fail": "お支払い失敗",
+    "failMessage": "お支払い処理中にエラーが発生しました",
+    "goHome": "ホームへ",
+    "retry": "再試行"
+  },
+  "Usage": {
+    "limitReached": "本日の無料利用上限に達しました",
+    "premiumRequired": "プレミアム限定機能です",
+    "loginRequired": "ログインが必要です",
+    "upgradeToPremium": "プレミアムにアップグレード",
+    "remainingToday": "本日の残り回数: {count}回"
   },
   "LocaleSwitcher": {
     "ko": "韓国語",

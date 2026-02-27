@@ -4,6 +4,8 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { SessionProvider } from "@/components/auth/SessionProvider";
+import { AuthHeader } from "@/components/auth/AuthHeader";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
 import { StarField } from "@/components/decorative/StarField";
@@ -34,16 +36,19 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className="dark">
       <body className="noise-overlay">
-        <NextIntlClientProvider>
-          <StarField count={40} />
-          <div className="fixed top-3 right-3 z-50">
-            <LocaleSwitcher />
-          </div>
-          <main className="mx-auto min-h-screen max-w-lg pb-20">
-            {children}
-          </main>
-          <BottomNav />
-        </NextIntlClientProvider>
+        <SessionProvider>
+          <NextIntlClientProvider>
+            <StarField count={40} />
+            <div className="fixed top-3 right-3 z-50 flex items-center gap-2">
+              <AuthHeader />
+              <LocaleSwitcher />
+            </div>
+            <main className="mx-auto min-h-screen max-w-lg pb-20">
+              {children}
+            </main>
+            <BottomNav />
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );

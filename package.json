@@ -16,9 +16,13 @@
     "url": "git+https://github.com/JangRuBin2/saju-front.git"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
+    "@prisma/client": "^6.19.2",
+    "@tosspayments/tosspayments-sdk": "^2.5.0",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
     "next": "^16.1.6",
+    "next-auth": "^5.0.0-beta.30",
     "next-intl": "^4.8.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
@@ -31,6 +35,7 @@
     "eslint": "^9.39.3",
     "eslint-config-next": "^16.1.6",
     "postcss": "^8.5.6",
+    "prisma": "^6.19.2",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3"
   }

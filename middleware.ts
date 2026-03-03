@@ -4,7 +4,7 @@ import { routing } from "./src/i18n/routing";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const PROTECTED_ROUTES = ["/mypage", "/payment"];
+const PROTECTED_ROUTES = ["/mypage", "/payment", "/dashboard"];
 const AUTH_ROUTES = ["/login"];
 
 function getPathnameWithoutLocale(pathname: string): string {
@@ -36,7 +36,8 @@ export default async function middleware(request: NextRequest) {
   // Redirect unauthenticated users from protected routes to login
   if (!isAuthenticated && PROTECTED_ROUTES.some((r) => pathnameWithoutLocale.startsWith(r))) {
     const locale = getLocaleFromPathname(pathname);
-    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    const callbackUrl = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
+    return NextResponse.redirect(new URL(`/${locale}/login?callbackUrl=${callbackUrl}`, request.url));
   }
 
   return intlMiddleware(request);

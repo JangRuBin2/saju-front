@@ -29,6 +29,8 @@
     "todayDesc": "Check your fortune for today",
     "compatCard": "Compatibility",
     "compatDesc": "Find out the compatibility between two people",
+    "dashCard": "Dashboard",
+    "dashDesc": "Your fortune overview",
     "myCard": "MY",
     "myDesc": "Manage my information"
   },
@@ -159,6 +161,29 @@
     "loginRequired": "Login required",
     "upgradeToPremium": "Upgrade to Premium",
     "remainingToday": "Remaining today: {count}"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "guest": "Guest",
+    "welcome": "Welcome, {name}",
+    "welcomeSubtitle": "Have a wonderful day",
+    "todayFortune": "Today's Fortune",
+    "viewAll": "View All",
+    "overall": "Overall",
+    "love": "Love",
+    "wealth": "Wealth",
+    "health": "Health",
+    "career": "Career",
+    "quickActions": "Quick Actions",
+    "quickSaju": "Saju Analysis",
+    "quickToday": "Daily Fortune",
+    "quickCompat": "Compatibility",
+    "quickMonthly": "Monthly Fortune",
+    "premiumTitle": "Upgrade to Premium",
+    "premiumDesc": "Unlock all features with unlimited access",
+    "upgrade": "Upgrade",
+    "recentActivity": "Recent Activity",
+    "noActivity": "No recent activity"
   },
   "LocaleSwitcher": {
     "ko": "Korean",

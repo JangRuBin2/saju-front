@@ -7,15 +7,70 @@ import { useRouter } from "@/i18n/navigation";
 import { Header } from "@/components/layout/Header";
 import { GoldCard } from "@/components/ui/GoldCard";
 import { GoldButton } from "@/components/ui/GoldButton";
-import { Check, Crown, Star } from "lucide-react";
+import { GoldFrame } from "@/components/decorative/GoldFrame";
+import { GoldToggle } from "@/components/ui/GoldToggle";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Crown,
+  Star,
+  Check,
+  X,
+  ChevronDown,
+  Shield,
+  Users,
+  Sparkles,
+} from "lucide-react";
 
-const PREMIUM_AMOUNT = 9900;
+const MONTHLY_AMOUNT = 9900;
+const ANNUAL_AMOUNT = 79000;
+
+const FREE_FEATURES = [
+  { text: "사주 풀이 1일 1회", available: true },
+  { text: "오늘의 운세 1일 1회", available: true },
+  { text: "궁합 1일 1회", available: true },
+  { text: "월간 운세", available: false },
+  { text: "신살 분석", available: false },
+];
+
+const PREMIUM_FEATURES = [
+  { text: "모든 기능 무제한" },
+  { text: "월간 운세 이용 가능" },
+  { text: "신살 분석 이용 가능" },
+  { text: "광고 없음" },
+  { text: "우선 고객 지원" },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: "언제든지 해지할 수 있나요?",
+    answer:
+      "네, 언제든지 구독을 해지할 수 있습니다. 해지 후에도 현재 결제 기간이 끝날 때까지 프리미엄 기능을 이용하실 수 있습니다.",
+  },
+  {
+    question: "결제 수단은 어떤 것이 있나요?",
+    answer:
+      "카드 결제, 카카오페이, 네이버페이 등 다양한 결제 수단을 지원합니다.",
+  },
+  {
+    question: "환불이 가능한가요?",
+    answer:
+      "결제 후 7일 이내에 서비스를 이용하지 않으셨다면 전액 환불이 가능합니다. 고객센터로 문의해 주세요.",
+  },
+];
 
 export default function PaymentPage() {
   const t = useTranslations("Payment");
   const { data: session } = useSession();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const isAnnual = billingCycle === "annual";
+  const currentAmount = isAnnual ? ANNUAL_AMOUNT : MONTHLY_AMOUNT;
+  const monthlyEquivalent = isAnnual
+    ? Math.round(ANNUAL_AMOUNT / 12).toLocaleString()
+    : null;
 
   const handleSubscribe = async () => {
     if (!session?.user?.id) {
@@ -25,21 +80,22 @@ export default function PaymentPage() {
 
     setIsProcessing(true);
     try {
-      // Create order on server
       const res = await fetch("/api/payments/confirm", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: session.user.id,
           plan: "premium",
-          amount: PREMIUM_AMOUNT,
+          billingCycle,
+          amount: currentAmount,
         }),
       });
 
       const { orderId } = await res.json();
 
-      // Load Toss Payments SDK dynamically
-      const { loadTossPayments } = await import("@tosspayments/tosspayments-sdk");
+      const { loadTossPayments } = await import(
+        "@tosspayments/tosspayments-sdk"
+      );
       const tossPayments = await loadTossPayments(
         process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || ""
       );
@@ -47,9 +103,9 @@ export default function PaymentPage() {
       const payment = tossPayments.payment({ customerKey: session.user.id });
       await payment.requestPayment({
         method: "CARD",
-        amount: { currency: "KRW", value: PREMIUM_AMOUNT },
+        amount: { currency: "KRW", value: currentAmount },
         orderId,
-        orderName: t("premiumPlan"),
+        orderName: `${t("premiumPlan")} (${isAnnual ? "연간" : "월간"})`,
         successUrl: `${window.location.origin}/api/payments/confirm?redirect=true`,
         failUrl: `${window.location.origin}${window.location.pathname.replace(/\/payment$/, "")}/payment/fail`,
       });
@@ -58,63 +114,288 @@ export default function PaymentPage() {
     }
   };
 
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
   return (
-    <div>
+    <div className="min-h-screen bg-midnight-950">
       <Header title={t("title")} showBack />
-      <div className="flex flex-col gap-5 px-4 py-6">
-        <p className="text-center text-sm text-gold-500">{t("subtitle")}</p>
 
-        {/* Free Plan */}
-        <GoldCard>
-          <div className="p-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Star size={20} className="text-gold-500" strokeWidth={1.5} />
-              <h3 className="text-base font-semibold text-gold-300">
-                {t("freePlan")}
-              </h3>
-            </div>
-            <ul className="space-y-2">
-              {(["free1", "free2", "free3"] as const).map((key) => (
-                <li key={key} className="flex items-center gap-2 text-sm text-gold-500">
-                  <Check size={14} className="text-gold-600" />
-                  {t(key)}
-                </li>
-              ))}
-            </ul>
+      <div className="mx-auto max-w-lg px-4 pb-12">
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center gap-4 pt-8 pb-6"
+        >
+          <GoldFrame size="md">
+            <Crown size={36} className="text-gold-400" strokeWidth={1.5} />
+          </GoldFrame>
+          <h2 className="text-2xl font-bold text-gold-gradient">
+            {t("title")}
+          </h2>
+          <p className="text-sm text-gold-500 text-center max-w-xs">
+            {t("subtitle")}
+          </p>
+        </motion.div>
+
+        {/* Billing Cycle Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="relative">
+            <GoldToggle
+              options={[
+                { value: "monthly", label: "월간" },
+                { value: "annual", label: "연간" },
+              ]}
+              value={billingCycle}
+              onChange={setBillingCycle}
+            />
+            {billingCycle === "annual" && (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="absolute -top-3 -right-14 rounded-full bg-gradient-to-r from-gold-600 to-gold-500 px-2 py-0.5 text-[10px] font-bold text-midnight-950 whitespace-nowrap"
+              >
+                33% 할인
+              </motion.span>
+            )}
           </div>
-        </GoldCard>
+        </motion.div>
 
-        {/* Premium Plan */}
-        <GoldCard variant="highlight">
-          <div className="p-2">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Crown size={20} className="text-gold-400" strokeWidth={1.5} />
-                <h3 className="text-base font-semibold text-gold-300">
-                  {t("premiumPlan")}
-                </h3>
+        {/* Plan Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+          {/* Free Plan */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <GoldCard className="h-full">
+              <div className="p-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <Star
+                    size={20}
+                    className="text-gold-500"
+                    strokeWidth={1.5}
+                  />
+                  <h3 className="text-base font-semibold text-gold-300">
+                    {t("freePlan")}
+                  </h3>
+                </div>
+                <p className="text-2xl font-bold text-gold-300 mb-5">
+                  0원
+                  <span className="text-xs font-normal text-gold-600 ml-1">
+                    /월
+                  </span>
+                </p>
+                <ul className="space-y-3 mb-6">
+                  {FREE_FEATURES.map((feature, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-center gap-2.5 text-sm ${
+                        feature.available ? "text-gold-500" : "text-gold-700"
+                      }`}
+                    >
+                      {feature.available ? (
+                        <Check
+                          size={15}
+                          className="text-gold-500 shrink-0"
+                          strokeWidth={2}
+                        />
+                      ) : (
+                        <X
+                          size={15}
+                          className="text-gold-700 shrink-0"
+                          strokeWidth={2}
+                        />
+                      )}
+                      {feature.text}
+                    </li>
+                  ))}
+                </ul>
+                <GoldButton
+                  variant="secondary"
+                  disabled
+                  className="w-full"
+                  size="md"
+                >
+                  현재 이용 중
+                </GoldButton>
               </div>
-              <span className="text-sm font-bold text-gold-gradient">
-                {t("monthlyPrice")}
+            </GoldCard>
+          </motion.div>
+
+          {/* Premium Plan */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="relative"
+          >
+            {/* BEST Badge */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+              <span className="rounded-full bg-gradient-to-r from-gold-600 to-gold-500 px-4 py-1 text-xs font-bold text-midnight-950 shadow-gold">
+                BEST
               </span>
             </div>
-            <ul className="space-y-2 mb-6">
-              {(["premium1", "premium2", "premium3"] as const).map((key) => (
-                <li key={key} className="flex items-center gap-2 text-sm text-gold-400">
-                  <Check size={14} className="text-gold-400" />
-                  {t(key)}
-                </li>
-              ))}
-            </ul>
-            <GoldButton
-              onClick={handleSubscribe}
-              disabled={isProcessing}
-              className="w-full"
-            >
-              {isProcessing ? "..." : t("subscribe")}
-            </GoldButton>
+            <GoldCard variant="highlight" className="h-full">
+              <div className="p-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <Crown
+                    size={20}
+                    className="text-gold-400"
+                    strokeWidth={1.5}
+                  />
+                  <h3 className="text-base font-semibold text-gold-300">
+                    {t("premiumPlan")}
+                  </h3>
+                </div>
+                <div className="mb-5">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={billingCycle}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {isAnnual ? (
+                        <>
+                          <p className="text-2xl font-bold text-gold-300">
+                            {ANNUAL_AMOUNT.toLocaleString()}원
+                            <span className="text-xs font-normal text-gold-600 ml-1">
+                              /년
+                            </span>
+                          </p>
+                          <p className="text-xs text-gold-500 mt-0.5">
+                            = {monthlyEquivalent}원/월
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-2xl font-bold text-gold-300">
+                          {MONTHLY_AMOUNT.toLocaleString()}원
+                          <span className="text-xs font-normal text-gold-600 ml-1">
+                            /월
+                          </span>
+                        </p>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+                <ul className="space-y-3 mb-6">
+                  {PREMIUM_FEATURES.map((feature, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2.5 text-sm text-gold-400"
+                    >
+                      <Check
+                        size={15}
+                        className="text-gold-400 shrink-0"
+                        strokeWidth={2}
+                      />
+                      {feature.text}
+                    </li>
+                  ))}
+                </ul>
+                <GoldButton
+                  onClick={handleSubscribe}
+                  disabled={isProcessing}
+                  loading={isProcessing}
+                  className="w-full"
+                  size="md"
+                >
+                  {isProcessing ? t("subscribe") : t("subscribe")}
+                </GoldButton>
+              </div>
+            </GoldCard>
+          </motion.div>
+        </div>
+
+        {/* Social Proof */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-col items-center gap-2 mb-10"
+        >
+          <div className="flex items-center gap-2">
+            <Users size={16} className="text-gold-500" strokeWidth={1.5} />
+            <span className="text-sm font-medium text-gold-400">
+              10,000+ 사용자가 선택
+            </span>
           </div>
-        </GoldCard>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Sparkles
+                key={star}
+                size={14}
+                className="text-gold-500"
+                strokeWidth={1.5}
+              />
+            ))}
+            <span className="text-xs text-gold-600 ml-1">4.9 / 5.0</span>
+          </div>
+        </motion.div>
+
+        {/* FAQ Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mb-8"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Shield size={16} className="text-gold-500" strokeWidth={1.5} />
+            <h3 className="text-sm font-semibold text-gold-400">
+              자주 묻는 질문
+            </h3>
+          </div>
+          <div className="space-y-2">
+            {FAQ_ITEMS.map((item, index) => (
+              <div
+                key={index}
+                className="rounded-lg border border-gold-600/20 bg-midnight-800/40 overflow-hidden"
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(index)}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                >
+                  <span className="text-sm text-gold-400">{item.question}</span>
+                  <motion.div
+                    animate={{ rotate: openFaqIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown
+                      size={16}
+                      className="text-gold-600 shrink-0"
+                    />
+                  </motion.div>
+                </button>
+                <AnimatePresence initial={false}>
+                  {openFaqIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <p className="px-4 pb-3 text-xs leading-relaxed text-gold-600">
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </div>
   );

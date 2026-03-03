@@ -21,16 +21,17 @@ export async function GET(request: NextRequest) {
   const paymentKey = searchParams.get("paymentKey");
   const orderId = searchParams.get("orderId");
   const amount = Number(searchParams.get("amount"));
+  const locale = searchParams.get("locale") || "ko";
 
   if (!paymentKey || !orderId || !amount) {
-    return NextResponse.redirect(new URL("/ko/payment/fail", request.url));
+    return NextResponse.redirect(new URL(`/${locale}/payment/fail`, request.url));
   }
 
   const result = await confirmPayment(paymentKey, orderId, amount);
 
   if (result.success) {
-    return NextResponse.redirect(new URL("/ko/payment/success", request.url));
+    return NextResponse.redirect(new URL(`/${locale}/payment/success`, request.url));
   }
 
-  return NextResponse.redirect(new URL("/ko/payment/fail", request.url));
+  return NextResponse.redirect(new URL(`/${locale}/payment/fail`, request.url));
 }

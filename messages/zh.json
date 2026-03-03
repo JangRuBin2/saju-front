@@ -29,6 +29,8 @@
     "todayDesc": "查看今天的运势",
     "compatCard": "合婚",
     "compatDesc": "了解两个人的缘分",
+    "dashCard": "仪表盘",
+    "dashDesc": "我的运势总览",
     "myCard": "我的",
     "myDesc": "管理我的信息"
   },
@@ -159,6 +161,29 @@
     "loginRequired": "需要登录",
     "upgradeToPremium": "升级到高级版",
     "remainingToday": "今日剩余次数: {count}次"
+  },
+  "Dashboard": {
+    "title": "仪表盘",
+    "guest": "访客",
+    "welcome": "欢迎，{name}",
+    "welcomeSubtitle": "祝您今天愉快",
+    "todayFortune": "今日运势",
+    "viewAll": "查看全部",
+    "overall": "综合运",
+    "love": "爱情运",
+    "wealth": "财运",
+    "health": "健康运",
+    "career": "事业运",
+    "quickActions": "快捷操作",
+    "quickSaju": "四柱分析",
+    "quickToday": "今日运势",
+    "quickCompat": "合婚测试",
+    "quickMonthly": "月运势",
+    "premiumTitle": "升级到高级版",
+    "premiumDesc": "解锁所有功能，无限使用",
+    "upgrade": "升级",
+    "recentActivity": "最近活动",
+    "noActivity": "暂无最近活动"
   },
   "LocaleSwitcher": {
     "ko": "韩语",

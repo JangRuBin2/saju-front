@@ -29,6 +29,8 @@
     "todayDesc": "今日の運勢をチェックしましょう",
     "compatCard": "相性",
     "compatDesc": "二人の相性を調べましょう",
+    "dashCard": "ダッシュボード",
+    "dashDesc": "運勢の総合状況",
     "myCard": "MY",
     "myDesc": "マイ情報管理"
   },
@@ -159,6 +161,29 @@
     "loginRequired": "ログインが必要です",
     "upgradeToPremium": "プレミアムにアップグレード",
     "remainingToday": "本日の残り回数: {count}回"
+  },
+  "Dashboard": {
+    "title": "ダッシュボード",
+    "guest": "ゲスト",
+    "welcome": "{name}さん、ようこそ",
+    "welcomeSubtitle": "今日も素敵な一日を",
+    "todayFortune": "今日の運勢",
+    "viewAll": "詳しく見る",
+    "overall": "総合運",
+    "love": "恋愛運",
+    "wealth": "金運",
+    "health": "健康運",
+    "career": "仕事運",
+    "quickActions": "クイックアクション",
+    "quickSaju": "四柱分析",
+    "quickToday": "今日の運勢",
+    "quickCompat": "相性チェック",
+    "quickMonthly": "月間運勢",
+    "premiumTitle": "プレミアムにアップグレード",
+    "premiumDesc": "すべての機能を無制限でご利用ください",
+    "upgrade": "アップグレード",
+    "recentActivity": "最近のアクティビティ",
+    "noActivity": "最近のアクティビティはありません"
   },
   "LocaleSwitcher": {
     "ko": "韓国語",

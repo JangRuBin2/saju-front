@@ -1,19 +1,29 @@
 "use client";
 
+import { Suspense } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Header } from "@/components/layout/Header";
 import { GoldCard } from "@/components/ui/GoldCard";
 import { GoldFrame } from "@/components/decorative/GoldFrame";
 import { GoldButton } from "@/components/ui/GoldButton";
 
-export default function LoginPage() {
+function LoginContent() {
   const t = useTranslations("Auth");
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
     <div>
       <Header title={t("login")} showBack />
       <div className="flex flex-col items-center gap-8 px-4 pt-12">
+        {error && (
+          <div className="w-full max-w-sm rounded-lg border border-red-500/30 bg-red-900/20 px-4 py-3 text-center text-sm text-red-400">
+            로그인 중 오류가 발생했습니다. 다시 시도해 주세요.
+          </div>
+        )}
         <GoldFrame size="lg">
           <span className="text-4xl font-serif text-gold-gradient">命</span>
         </GoldFrame>
@@ -28,7 +38,7 @@ export default function LoginPage() {
         <GoldCard className="w-full max-w-sm">
           <div className="flex flex-col gap-3 p-2">
             <GoldButton
-              onClick={() => signIn("kakao", { callbackUrl: "/" })}
+              onClick={() => signIn("kakao", { callbackUrl })}
               className="w-full"
               style={{ backgroundColor: "#FEE500", color: "#191919" }}
             >
@@ -36,7 +46,7 @@ export default function LoginPage() {
             </GoldButton>
 
             <GoldButton
-              onClick={() => signIn("naver", { callbackUrl: "/" })}
+              onClick={() => signIn("naver", { callbackUrl })}
               className="w-full"
               style={{ backgroundColor: "#03C75A", color: "#ffffff" }}
             >
@@ -44,7 +54,7 @@ export default function LoginPage() {
             </GoldButton>
 
             <GoldButton
-              onClick={() => signIn("google", { callbackUrl: "/" })}
+              onClick={() => signIn("google", { callbackUrl })}
               variant="secondary"
               className="w-full"
             >
@@ -58,5 +68,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginContent />
+    </Suspense>
   );
 }

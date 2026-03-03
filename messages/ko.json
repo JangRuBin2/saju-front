@@ -29,6 +29,8 @@
     "todayDesc": "오늘 하루의 운세를 확인하세요",
     "compatCard": "궁합",
     "compatDesc": "두 사람의 궁합을 알아보세요",
+    "dashCard": "대시보드",
+    "dashDesc": "나의 운세 종합 현황",
     "myCard": "MY",
     "myDesc": "내 정보 관리"
   },
@@ -159,6 +161,29 @@
     "loginRequired": "로그인이 필요합니다",
     "upgradeToPremium": "프리미엄으로 업그레이드",
     "remainingToday": "오늘 남은 횟수: {count}회"
+  },
+  "Dashboard": {
+    "title": "대시보드",
+    "guest": "방문자",
+    "welcome": "{name}님, 환영합니다",
+    "welcomeSubtitle": "오늘도 좋은 하루 되세요",
+    "todayFortune": "오늘의 운세",
+    "viewAll": "자세히 보기",
+    "overall": "총운",
+    "love": "애정운",
+    "wealth": "재물운",
+    "health": "건강운",
+    "career": "직장운",
+    "quickActions": "바로가기",
+    "quickSaju": "사주 분석",
+    "quickToday": "오늘의 운세",
+    "quickCompat": "궁합 보기",
+    "quickMonthly": "월간 운세",
+    "premiumTitle": "프리미엄으로 업그레이드",
+    "premiumDesc": "모든 기능을 무제한으로 이용하세요",
+    "upgrade": "업그레이드",
+    "recentActivity": "최근 활동",
+    "noActivity": "최근 활동 내역이 없습니다"
   },
   "LocaleSwitcher": {
     "ko": "한국어",

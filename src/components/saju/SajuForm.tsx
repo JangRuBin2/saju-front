@@ -35,14 +35,26 @@ export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
-    if (!year || isNaN(Number(year))) {
+    const yearNum = Number(year);
+    const currentYear = new Date().getFullYear();
+
+    if (!year || isNaN(yearNum)) {
       newErrors.year = t("validation.yearRequired");
+    } else if (yearNum < 1900 || yearNum > currentYear) {
+      newErrors.year = t("validation.yearRange");
     }
     if (!month) {
       newErrors.month = t("validation.monthRequired");
     }
     if (!day) {
       newErrors.day = t("validation.dayRequired");
+    } else if (month) {
+      const monthNum = Number(month);
+      const dayNum = Number(day);
+      const maxDay = new Date(yearNum || 2000, monthNum, 0).getDate();
+      if (dayNum > maxDay) {
+        newErrors.day = t("validation.dayInvalid");
+      }
     }
     if (!gender) {
       newErrors.gender = t("validation.genderRequired");
@@ -98,7 +110,7 @@ export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
             onChange={(e) => setYear(e.target.value)}
             error={errors.year}
             min={1900}
-            max={2030}
+            max={new Date().getFullYear()}
           />
           <GoldSelect
             label={t("birthMonth")}

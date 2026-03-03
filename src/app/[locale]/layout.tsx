@@ -12,8 +12,24 @@ import { StarField } from "@/components/decorative/StarField";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Saju Myeongri",
-  description: "Eastern philosophy wisdom for your destiny",
+  title: {
+    default: "사주명리 - Saju Myeongri",
+    template: "%s | 사주명리",
+  },
+  description: "사주팔자, 오늘의 운세, 궁합 분석 - 동양 철학의 지혜로 당신의 운명을 밝혀드립니다. Four Pillars of Destiny analysis powered by Eastern philosophy.",
+  keywords: ["사주", "사주팔자", "운세", "궁합", "오늘의운세", "사주명리", "fortune", "saju", "compatibility"],
+  authors: [{ name: "Saju Myeongri" }],
+  openGraph: {
+    title: "사주명리 - Saju Myeongri",
+    description: "동양 철학의 지혜로 당신의 운명을 밝혀드립니다",
+    type: "website",
+    locale: "ko_KR",
+    siteName: "사주명리",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export function generateStaticParams() {

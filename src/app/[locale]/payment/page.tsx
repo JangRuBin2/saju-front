@@ -24,42 +24,30 @@ import {
 const MONTHLY_AMOUNT = 9900;
 const ANNUAL_AMOUNT = 79000;
 
-const FREE_FEATURES = [
-  { text: "사주 풀이 1일 1회", available: true },
-  { text: "오늘의 운세 1일 1회", available: true },
-  { text: "궁합 1일 1회", available: true },
-  { text: "월간 운세", available: false },
-  { text: "신살 분석", available: false },
-];
-
-const PREMIUM_FEATURES = [
-  { text: "모든 기능 무제한" },
-  { text: "월간 운세 이용 가능" },
-  { text: "신살 분석 이용 가능" },
-  { text: "광고 없음" },
-  { text: "우선 고객 지원" },
-];
-
-const FAQ_ITEMS = [
-  {
-    question: "언제든지 해지할 수 있나요?",
-    answer:
-      "네, 언제든지 구독을 해지할 수 있습니다. 해지 후에도 현재 결제 기간이 끝날 때까지 프리미엄 기능을 이용하실 수 있습니다.",
-  },
-  {
-    question: "결제 수단은 어떤 것이 있나요?",
-    answer:
-      "카드 결제, 카카오페이, 네이버페이 등 다양한 결제 수단을 지원합니다.",
-  },
-  {
-    question: "환불이 가능한가요?",
-    answer:
-      "결제 후 7일 이내에 서비스를 이용하지 않으셨다면 전액 환불이 가능합니다. 고객센터로 문의해 주세요.",
-  },
-];
-
 export default function PaymentPage() {
   const t = useTranslations("Payment");
+
+  const freeFeatures = [
+    { text: t("free1"), available: true },
+    { text: t("free2"), available: true },
+    { text: t("free3"), available: true },
+    { text: t("free4"), available: false },
+    { text: t("free5"), available: false },
+  ];
+
+  const premiumFeatures = [
+    { text: t("premium1") },
+    { text: t("premium2") },
+    { text: t("premium3") },
+    { text: t("premium4") },
+    { text: t("premium5") },
+  ];
+
+  const faqItems = [
+    { question: t("faqQ1"), answer: t("faqA1") },
+    { question: t("faqQ2"), answer: t("faqA2") },
+    { question: t("faqQ3"), answer: t("faqA3") },
+  ];
   const { data: session } = useSession();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -150,8 +138,8 @@ export default function PaymentPage() {
           <div className="relative">
             <GoldToggle
               options={[
-                { value: "monthly", label: "월간" },
-                { value: "annual", label: "연간" },
+                { value: "monthly", label: t("perMonth").replace("/", "") },
+                { value: "annual", label: t("perYear").replace("/", "") },
               ]}
               value={billingCycle}
               onChange={setBillingCycle}
@@ -162,7 +150,7 @@ export default function PaymentPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="absolute -top-3 -right-14 rounded-full bg-gradient-to-r from-gold-600 to-gold-500 px-2 py-0.5 text-[10px] font-bold text-midnight-950 whitespace-nowrap"
               >
-                33% 할인
+                {t("discount")}
               </motion.span>
             )}
           </div>
@@ -191,11 +179,11 @@ export default function PaymentPage() {
                 <p className="text-2xl font-bold text-gold-300 mb-5">
                   0원
                   <span className="text-xs font-normal text-gold-600 ml-1">
-                    /월
+                    {t("perMonth")}
                   </span>
                 </p>
                 <ul className="space-y-3 mb-6">
-                  {FREE_FEATURES.map((feature, i) => (
+                  {freeFeatures.map((feature, i) => (
                     <li
                       key={i}
                       className={`flex items-center gap-2.5 text-sm ${
@@ -225,7 +213,7 @@ export default function PaymentPage() {
                   className="w-full"
                   size="md"
                 >
-                  현재 이용 중
+                  {t("currentlyUsing")}
                 </GoldButton>
               </div>
             </GoldCard>
@@ -241,7 +229,7 @@ export default function PaymentPage() {
             {/* BEST Badge */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
               <span className="rounded-full bg-gradient-to-r from-gold-600 to-gold-500 px-4 py-1 text-xs font-bold text-midnight-950 shadow-gold">
-                BEST
+                {t("best")}
               </span>
             </div>
             <GoldCard variant="highlight" className="h-full">
@@ -270,18 +258,18 @@ export default function PaymentPage() {
                           <p className="text-2xl font-bold text-gold-300">
                             {ANNUAL_AMOUNT.toLocaleString()}원
                             <span className="text-xs font-normal text-gold-600 ml-1">
-                              /년
+                              {t("perYear")}
                             </span>
                           </p>
                           <p className="text-xs text-gold-500 mt-0.5">
-                            = {monthlyEquivalent}원/월
+                            {t("monthlyEquiv", { amount: monthlyEquivalent ?? "" })}
                           </p>
                         </>
                       ) : (
                         <p className="text-2xl font-bold text-gold-300">
                           {MONTHLY_AMOUNT.toLocaleString()}원
                           <span className="text-xs font-normal text-gold-600 ml-1">
-                            /월
+                            {t("perMonth")}
                           </span>
                         </p>
                       )}
@@ -289,7 +277,7 @@ export default function PaymentPage() {
                   </AnimatePresence>
                 </div>
                 <ul className="space-y-3 mb-6">
-                  {PREMIUM_FEATURES.map((feature, i) => (
+                  {premiumFeatures.map((feature, i) => (
                     <li
                       key={i}
                       className="flex items-center gap-2.5 text-sm text-gold-400"
@@ -327,7 +315,7 @@ export default function PaymentPage() {
           <div className="flex items-center gap-2">
             <Users size={16} className="text-gold-500" strokeWidth={1.5} />
             <span className="text-sm font-medium text-gold-400">
-              10,000+ 사용자가 선택
+              {t("socialProof")}
             </span>
           </div>
           <div className="flex items-center gap-1">
@@ -339,7 +327,7 @@ export default function PaymentPage() {
                 strokeWidth={1.5}
               />
             ))}
-            <span className="text-xs text-gold-600 ml-1">4.9 / 5.0</span>
+            <span className="text-xs text-gold-600 ml-1">{t("rating")}</span>
           </div>
         </motion.div>
 
@@ -353,11 +341,11 @@ export default function PaymentPage() {
           <div className="flex items-center gap-2 mb-4">
             <Shield size={16} className="text-gold-500" strokeWidth={1.5} />
             <h3 className="text-sm font-semibold text-gold-400">
-              자주 묻는 질문
+              {t("faq")}
             </h3>
           </div>
           <div className="space-y-2">
-            {FAQ_ITEMS.map((item, index) => (
+            {faqItems.map((item, index) => (
               <div
                 key={index}
                 className="rounded-lg border border-gold-600/20 bg-midnight-800/40 overflow-hidden"

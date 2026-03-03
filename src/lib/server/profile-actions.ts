@@ -84,3 +84,23 @@ export async function saveProfile(data: ProfileData): Promise<ActionResult<Profi
     },
   };
 }
+
+export async function deleteAccount(): Promise<ActionResult<boolean>> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, error: "Not authenticated", errorType: "auth_required" };
+  }
+
+  try {
+    await prisma.user.delete({
+      where: { id: session.user.id },
+    });
+    return { success: true, data: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete account",
+      errorType: "server_error",
+    };
+  }
+}

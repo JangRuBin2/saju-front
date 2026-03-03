@@ -10,6 +10,7 @@ import { InterpretCard } from "@/components/saju/InterpretCard";
 import { LoadingBook } from "@/components/decorative/LoadingBook";
 import { GoldButton } from "@/components/ui/GoldButton";
 import { GoldCard } from "@/components/ui/GoldCard";
+import { ErrorMessage } from "@/components/ui/ErrorMessage";
 import { useSajuReading } from "@/hooks/useSajuReading";
 import type { BirthInput } from "@/types/api";
 
@@ -40,9 +41,12 @@ export default function SajuResultPage() {
         <Header title={t("title")} showBack />
         {error ? (
           <div className="px-4 py-6">
-            <GoldCard>
-              <p className="text-sm text-red-400">{error}</p>
-            </GoldCard>
+            <ErrorMessage error={error} errorType="server_error" onRetry={() => {
+              const stored = sessionStorage.getItem("sajuBirthInput");
+              if (stored) {
+                try { startReading(JSON.parse(stored)); } catch { router.push("/saju"); }
+              } else { router.push("/saju"); }
+            }} />
           </div>
         ) : (
           <LoadingBook message={t("loading")} description={t("loadingDesc")} />
@@ -73,9 +77,7 @@ export default function SajuResultPage() {
           {text ? (
             <InterpretCard text={text} isStreaming={isStreaming} />
           ) : error ? (
-            <GoldCard>
-              <p className="text-sm text-red-400">{error}</p>
-            </GoldCard>
+            <ErrorMessage error={error} errorType="server_error" />
           ) : (
             <LoadingBook
               message={t("loading")}

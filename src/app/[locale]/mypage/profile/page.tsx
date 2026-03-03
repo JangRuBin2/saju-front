@@ -40,7 +40,7 @@ export default function ProfilePage() {
   const handleSave = async () => {
     setSaving(true);
     setSaved(false);
-    await saveProfile({
+    const result = await saveProfile({
       birthYear: birthYear ? Number(birthYear) : null,
       birthMonth: birthMonth ? Number(birthMonth) : null,
       birthDay: birthDay ? Number(birthDay) : null,
@@ -50,8 +50,10 @@ export default function ProfilePage() {
       calendarType,
     });
     setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    if (result.success) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    }
   };
 
   const monthOptions = Array.from({ length: 12 }, (_, i) => ({
@@ -122,8 +124,8 @@ export default function ProfilePage() {
                 { value: "lunar", label: t("lunar") },
               ]}
             />
-            <GoldButton onClick={handleSave} disabled={saving} className="w-full">
-              {saved ? tCommon("save") + " !" : saving ? "..." : tCommon("save")}
+            <GoldButton onClick={handleSave} loading={saving} className="w-full">
+              {saved ? "✓ " + tCommon("save") : tCommon("save")}
             </GoldButton>
           </div>
         </GoldCard>

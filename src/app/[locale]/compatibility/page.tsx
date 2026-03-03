@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { SajuForm } from "@/components/saju/SajuForm";
 import { GoldCard } from "@/components/ui/GoldCard";
 import { GoldButton } from "@/components/ui/GoldButton";
+import { ErrorMessage } from "@/components/ui/ErrorMessage";
 import { LoadingBook } from "@/components/decorative/LoadingBook";
 import { SajuPillarGroup } from "@/components/saju/SajuPillarGroup";
 import { InterpretCard } from "@/components/saju/InterpretCard";
@@ -92,9 +93,7 @@ export default function CompatibilityPage() {
         </p>
 
         {error && (
-          <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400">
-            {error}
-          </div>
+          <ErrorMessage error={error} onRetry={handleReset} />
         )}
 
         {step === 1 ? (

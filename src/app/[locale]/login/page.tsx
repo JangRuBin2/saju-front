@@ -3,11 +3,10 @@
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { Header } from "@/components/layout/Header";
 import { GoldCard } from "@/components/ui/GoldCard";
 import { GoldFrame } from "@/components/decorative/GoldFrame";
-import { GoldButton } from "@/components/ui/GoldButton";
+import { SocialLoginButtons } from "@/components/auth/SocialLoginButtons";
 
 function LoginContent() {
   const t = useTranslations("Auth");
@@ -36,30 +35,8 @@ function LoginContent() {
         </div>
 
         <GoldCard className="w-full max-w-sm">
-          <div className="flex flex-col gap-3 p-2">
-            <GoldButton
-              onClick={() => signIn("kakao", { callbackUrl })}
-              className="w-full"
-              style={{ backgroundColor: "#FEE500", color: "#191919" }}
-            >
-              {t("kakaoLogin")}
-            </GoldButton>
-
-            <GoldButton
-              onClick={() => signIn("naver", { callbackUrl })}
-              className="w-full"
-              style={{ backgroundColor: "#03C75A", color: "#ffffff" }}
-            >
-              {t("naverLogin")}
-            </GoldButton>
-
-            <GoldButton
-              onClick={() => signIn("google", { callbackUrl })}
-              variant="secondary"
-              className="w-full"
-            >
-              {t("googleLogin")}
-            </GoldButton>
+          <div className="p-2">
+            <SocialLoginButtons callbackUrl={callbackUrl} />
           </div>
         </GoldCard>
 

@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-
 interface Star {
   id: number;
   x: number;
@@ -11,17 +9,30 @@ interface Star {
   duration: number;
 }
 
+function seededRandom(seed: number): () => number {
+  let s = seed;
+  return () => {
+    s = (s * 16807 + 0) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+
+function generateStars(count: number): Star[] {
+  const rand = seededRandom(12345);
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    x: rand() * 100,
+    y: rand() * 100,
+    size: rand() * 2 + 0.5,
+    delay: rand() * 5,
+    duration: rand() * 3 + 2,
+  }));
+}
+
+const DEFAULT_STARS = generateStars(50);
+
 export function StarField({ count = 50 }: { count?: number }) {
-  const stars = useMemo<Star[]>(() => {
-    return Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 0.5,
-      delay: Math.random() * 5,
-      duration: Math.random() * 3 + 2,
-    }));
-  }, [count]);
+  const stars = count === 50 ? DEFAULT_STARS : generateStars(count);
 
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">

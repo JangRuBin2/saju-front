@@ -11,12 +11,31 @@ interface TossConfirmResponse {
   approvedAt: string;
 }
 
+export async function createPaymentOrder(
+  userId: string,
+  readingTypeId: string,
+  amount: number
+): Promise<string> {
+  const orderId = `ef_${userId.slice(0, 8)}_${Date.now()}`;
+
+  await prisma.payment.create({
+    data: {
+      userId,
+      orderId,
+      amount,
+      readingTypeId,
+      status: "pending",
+    },
+  });
+
+  return orderId;
+}
+
 export async function confirmPayment(
   paymentKey: string,
   orderId: string,
   amount: number
 ): Promise<{ success: boolean; error?: string }> {
-  // Verify payment with Toss
   const response = await fetch(TOSS_API_URL, {
     method: "POST",
     headers: {
@@ -33,7 +52,6 @@ export async function confirmPayment(
 
   const data: TossConfirmResponse = await response.json();
 
-  // Find the pending payment record
   const payment = await prisma.payment.findUnique({
     where: { orderId },
   });
@@ -46,40 +64,59 @@ export async function confirmPayment(
     return { success: false, error: "Amount mismatch" };
   }
 
-  // Update payment record
-  const now = new Date();
-  const endDate = new Date(now);
-  endDate.setMonth(endDate.getMonth() + 1);
-
   await prisma.payment.update({
     where: { orderId },
     data: {
       paymentKey: data.paymentKey,
       status: "paid",
-      startDate: now,
-      endDate,
     },
   });
 
   return { success: true };
 }
 
-export async function createPaymentOrder(
+export async function findUnusedPayment(
   userId: string,
-  plan: string,
-  amount: number
-): Promise<string> {
-  const orderId = `saju_${userId}_${Date.now()}`;
-
-  await prisma.payment.create({
-    data: {
+  readingTypeCode: string
+) {
+  return prisma.payment.findFirst({
+    where: {
       userId,
-      orderId,
-      amount,
-      plan,
-      status: "pending",
+      status: "paid",
+      usedAt: null,
+      readingType: { code: readingTypeCode },
+    },
+    include: { readingType: true },
+    orderBy: { createdAt: "asc" },
+  });
+}
+
+export async function consumePayment(paymentId: string): Promise<void> {
+  await prisma.payment.update({
+    where: { id: paymentId },
+    data: {
+      status: "used",
+      usedAt: new Date(),
     },
   });
+}
 
-  return orderId;
+export async function getUserPayments(userId: string) {
+  return prisma.payment.findMany({
+    where: { userId },
+    include: { readingType: true },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getUserUnusedTickets(userId: string) {
+  return prisma.payment.findMany({
+    where: {
+      userId,
+      status: "paid",
+      usedAt: null,
+    },
+    include: { readingType: true },
+    orderBy: { createdAt: "desc" },
+  });
 }

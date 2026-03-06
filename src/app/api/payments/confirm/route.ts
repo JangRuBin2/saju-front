@@ -1,23 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { confirmPayment, createPaymentOrder } from "@/lib/server/payment-service";
+import { confirmPayment, createPaymentOrder, getUserPayments } from "@/lib/server/payment-service";
 
-// PUT: Create a payment order
+// PUT: Create a payment order for a reading type
 export async function PUT(request: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { plan, amount } = await request.json();
-  const orderId = await createPaymentOrder(session.user.id, plan, amount);
+  const { readingTypeId, amount } = await request.json();
+  if (!readingTypeId || !amount) {
+    return NextResponse.json({ error: "readingTypeId and amount are required" }, { status: 400 });
+  }
 
+  const orderId = await createPaymentOrder(session.user.id, readingTypeId, amount);
   return NextResponse.json({ orderId });
 }
 
-// GET: Handle Toss redirect after payment
+// GET: Handle Toss redirect after payment, or list payments
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
+
+  // List payments for current user
+  if (searchParams.get("list") === "true") {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const payments = await getUserPayments(session.user.id);
+    return NextResponse.json({ payments });
+  }
+
+  // Handle Toss payment confirmation redirect
   const paymentKey = searchParams.get("paymentKey");
   const orderId = searchParams.get("orderId");
   const amount = Number(searchParams.get("amount"));

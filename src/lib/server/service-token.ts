@@ -2,7 +2,7 @@ import { createHmac, randomBytes } from "crypto";
 
 interface ServiceTokenPayload {
   user_id: string;
-  tier: "free" | "premium";
+  reading_type: string;
   timestamp: number;
   nonce: string;
 }
@@ -18,11 +18,11 @@ function sign(payload: ServiceTokenPayload): string {
 
 export function generateServiceToken(
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): string {
   const payload: ServiceTokenPayload = {
     user_id: userId,
-    tier,
+    reading_type: readingType,
     timestamp: Math.floor(Date.now() / 1000),
     nonce: randomBytes(16).toString("hex"),
   };

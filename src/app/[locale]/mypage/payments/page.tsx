@@ -11,9 +11,20 @@ interface PaymentRecord {
   orderId: string;
   amount: number;
   status: string;
-  plan: string;
+  usedAt: string | null;
   createdAt: string;
+  readingType: {
+    name: string;
+  };
 }
+
+const STATUS_LABELS: Record<string, { text: string; className: string }> = {
+  pending: { text: "대기", className: "text-yellow-400 bg-yellow-400/10" },
+  paid: { text: "미사용", className: "text-green-400 bg-green-400/10" },
+  used: { text: "사용완료", className: "text-gold-600 bg-gold-600/10" },
+  canceled: { text: "취소", className: "text-red-400 bg-red-400/10" },
+  refunded: { text: "환불", className: "text-red-400 bg-red-400/10" },
+};
 
 export default function PaymentsPage() {
   const t = useTranslations("MyPage");
@@ -43,26 +54,35 @@ export default function PaymentsPage() {
           </GoldCard>
         ) : (
           <div className="space-y-3">
-            {payments.map((payment) => (
-              <GoldCard key={payment.id}>
-                <div className="flex items-center justify-between p-2">
-                  <div>
-                    <p className="text-sm font-medium text-gold-300">
-                      {payment.plan}
-                    </p>
-                    <p className="text-xs text-gold-600">
-                      {new Date(payment.createdAt).toLocaleDateString()}
-                    </p>
+            {payments.map((payment) => {
+              const statusInfo = STATUS_LABELS[payment.status] || {
+                text: payment.status,
+                className: "text-gold-600 bg-gold-600/10",
+              };
+
+              return (
+                <GoldCard key={payment.id}>
+                  <div className="flex items-center justify-between p-2">
+                    <div>
+                      <p className="text-sm font-medium text-gold-300">
+                        {payment.readingType.name}
+                      </p>
+                      <p className="text-xs text-gold-600">
+                        {new Date(payment.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="text-right flex items-center gap-2">
+                      <p className="text-sm font-medium text-gold-400">
+                        {payment.amount.toLocaleString()}원
+                      </p>
+                      <span className={`text-xs px-2 py-0.5 rounded ${statusInfo.className}`}>
+                        {statusInfo.text}
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gold-400">
-                      {payment.amount.toLocaleString()}
-                    </p>
-                    <p className="text-xs text-gold-600">{payment.status}</p>
-                  </div>
-                </div>
-              </GoldCard>
-            ))}
+                </GoldCard>
+              );
+            })}
           </div>
         )}
       </div>

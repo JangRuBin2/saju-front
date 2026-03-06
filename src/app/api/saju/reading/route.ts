@@ -1,60 +1,59 @@
 import { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
-import { getUserTier } from "@/lib/server/user-tier";
-import { checkUsageLimit, recordUsage } from "@/lib/server/usage-limiter";
+import { checkTicket, consumePayment } from "@/lib/server/usage-limiter";
 import { streamSajuReading } from "@/lib/server/api-server-client";
 
 export async function POST(request: NextRequest) {
   const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
 
   let effectiveUserId = "anonymous";
-  let tier: "free" | "premium" = "free";
+  let readingType = "saju_reading";
+  let paymentId: string | null = null;
+
+  const body = await request.json();
+  readingType = body.reading_type || "saju_reading";
 
   if (isTestMode) {
     effectiveUserId = "test-user";
-    tier = "premium";
   } else {
     const session = await auth();
-    const userId = session?.user?.id ?? null;
-    tier = userId ? await getUserTier(userId) : "free";
-    const sessionId = userId ? null : "anonymous";
-    effectiveUserId = userId || "anonymous";
+    const userId = session?.user?.id;
 
-    const { allowed } = await checkUsageLimit(
-      userId,
-      sessionId,
-      "saju_reading",
-      tier
-    );
-    if (!allowed) {
+    if (!userId) {
       return new Response(
-        JSON.stringify({
-          error: "UsageLimitError",
-          message: "Daily usage limit reached for saju_reading",
-        }),
-        { status: 429, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "Unauthorized", message: "Login required" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
+
+    effectiveUserId = userId;
+
+    const ticket = await checkTicket(userId, readingType);
+    if (!ticket.allowed) {
+      return new Response(
+        JSON.stringify({
+          error: "TicketRequired",
+          message: `Ticket required for ${readingType}`,
+          readingType,
+        }),
+        { status: 402, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    paymentId = ticket.paymentId;
   }
 
-  const body = await request.json();
-
   try {
-    const apiResponse = await streamSajuReading(body, effectiveUserId, tier);
+    const apiResponse = await streamSajuReading(body, effectiveUserId, readingType);
 
     if (!apiResponse.body) {
       throw new Error("No response body from API server");
     }
 
-    // Record usage on successful stream start (skip in test mode)
-    if (!isTestMode) {
-      const session = await auth();
-      const userId = session?.user?.id ?? null;
-      const sessionId = userId ? null : "anonymous";
-      await recordUsage(userId, sessionId, "saju_reading");
+    // Consume ticket on successful stream start (skip in test mode)
+    if (!isTestMode && paymentId) {
+      await consumePayment(paymentId);
     }
 
-    // Pass through the SSE stream
     return new Response(apiResponse.body, {
       headers: {
         "Content-Type": "text/event-stream",

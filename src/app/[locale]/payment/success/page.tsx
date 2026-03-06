@@ -25,7 +25,7 @@ export default function PaymentSuccessPage() {
         </div>
 
         <GoldCard className="w-full text-center py-8">
-          <p className="text-sm text-gold-400">{t("premiumPlan")}</p>
+          <p className="text-sm text-gold-400">{t("ticketReady")}</p>
         </GoldCard>
 
         <Link href="/" className="w-full max-w-sm">

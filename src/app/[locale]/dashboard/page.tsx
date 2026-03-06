@@ -13,7 +13,7 @@ import {
   Sun,
   Heart,
   Calendar,
-  Crown,
+  Ticket,
   BookOpen,
   Sparkles,
   TrendingUp,
@@ -31,10 +31,10 @@ const FORTUNE_CATEGORIES = [
 ] as const;
 
 const QUICK_ACTIONS = [
-  { key: "saju", href: "/saju", icon: Compass, labelKey: "quickSaju", premium: false },
-  { key: "today", href: "/today", icon: Sun, labelKey: "quickToday", premium: false },
-  { key: "compatibility", href: "/compatibility", icon: Heart, labelKey: "quickCompat", premium: false },
-  { key: "monthly", href: "/today", icon: Calendar, labelKey: "quickMonthly", premium: true },
+  { key: "saju", href: "/saju", icon: Compass, labelKey: "quickSaju" },
+  { key: "today", href: "/today", icon: Sun, labelKey: "quickToday" },
+  { key: "compatibility", href: "/compatibility", icon: Heart, labelKey: "quickCompat" },
+  { key: "monthly", href: "/today", icon: Calendar, labelKey: "quickMonthly" },
 ] as const;
 
 const containerVariants = {
@@ -58,7 +58,7 @@ export default function DashboardPage() {
 
   const displayName =
     session?.user?.name || session?.user?.email?.split("@")[0] || t("guest");
-  const isPremium = false; // TODO: derive from session/subscription state
+  const _ = session; // session used for display name above
 
   return (
     <div className="min-h-screen bg-[#0a0e1a]">
@@ -139,14 +139,6 @@ export default function DashboardPage() {
                       variant="interactive"
                       className="flex flex-col items-center gap-2.5 py-6 relative"
                     >
-                      {action.premium && (
-                        <span className="absolute top-2 right-2 flex items-center gap-0.5 rounded-full bg-gold-500/15 px-1.5 py-0.5">
-                          <Crown size={10} className="text-gold-400" />
-                          <span className="text-[9px] font-medium text-gold-400">
-                            PRO
-                          </span>
-                        </span>
-                      )}
                       <Icon size={24} className="text-gold-400" strokeWidth={1.5} />
                       <span className="text-xs font-medium text-gold-300">
                         {t(action.labelKey)}
@@ -159,33 +151,31 @@ export default function DashboardPage() {
           </div>
         </motion.section>
 
-        {/* ── Premium Banner ── */}
-        {!isPremium && (
-          <motion.section variants={itemVariants} className="mb-6">
-            <Link href="/payment">
-              <GoldCard
-                variant="highlight"
-                className="relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-gold-600/10 via-gold-500/5 to-transparent pointer-events-none" />
-                <div className="relative flex items-center gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold-500/15 border border-gold-500/30 shrink-0">
-                    <Crown size={22} className="text-gold-400" strokeWidth={1.5} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gold-300">
-                      {t("premiumTitle")}
-                    </p>
-                    <p className="text-xs text-gold-500 mt-0.5">
-                      {t("premiumDesc")}
-                    </p>
-                  </div>
-                  <GoldButton size="sm">{t("upgrade")}</GoldButton>
+        {/* ── Ticket Purchase Banner ── */}
+        <motion.section variants={itemVariants} className="mb-6">
+          <Link href="/payment">
+            <GoldCard
+              variant="highlight"
+              className="relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-gold-600/10 via-gold-500/5 to-transparent pointer-events-none" />
+              <div className="relative flex items-center gap-4">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold-500/15 border border-gold-500/30 shrink-0">
+                  <Ticket size={22} className="text-gold-400" strokeWidth={1.5} />
                 </div>
-              </GoldCard>
-            </Link>
-          </motion.section>
-        )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gold-300">
+                    {t("ticketTitle")}
+                  </p>
+                  <p className="text-xs text-gold-500 mt-0.5">
+                    {t("ticketDesc")}
+                  </p>
+                </div>
+                <GoldButton size="sm">{t("purchase")}</GoldButton>
+              </div>
+            </GoldCard>
+          </Link>
+        </motion.section>
 
         {/* ── Recent Activity ── */}
         <motion.section variants={itemVariants}>

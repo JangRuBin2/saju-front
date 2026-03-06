@@ -1,14 +1,7 @@
-export class UsageLimitError extends Error {
-  constructor(action: string) {
-    super(`Daily usage limit reached for ${action}`);
-    this.name = "UsageLimitError";
-  }
-}
-
-export class PremiumRequiredError extends Error {
-  constructor(action: string) {
-    super(`Premium subscription required for ${action}`);
-    this.name = "PremiumRequiredError";
+export class TicketRequiredError extends Error {
+  constructor(readingType: string) {
+    super(`Ticket required for ${readingType}`);
+    this.name = "TicketRequiredError";
   }
 }
 
@@ -21,4 +14,4 @@ export class AuthRequiredError extends Error {
 
 export type ActionResult<T> =
   | { success: true; data: T }
-  | { success: false; error: string; errorType: "usage_limit" | "premium_required" | "auth_required" | "server_error" };
+  | { success: false; error: string; errorType: "ticket_required" | "auth_required" | "server_error" };

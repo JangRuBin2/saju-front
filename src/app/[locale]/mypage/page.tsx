@@ -9,12 +9,12 @@ import { GoldButton } from "@/components/ui/GoldButton";
 import { GoldFrame } from "@/components/decorative/GoldFrame";
 import { Link } from "@/i18n/navigation";
 import { deleteAccount } from "@/lib/server/profile-actions";
-import { User, FileText, CreditCard, Crown, ChevronRight, Trash2, AlertTriangle } from "lucide-react";
+import { User, CreditCard, Ticket, ChevronRight, Trash2, AlertTriangle } from "lucide-react";
 
 const MENU_ITEMS = [
   { key: "profile", href: "/mypage/profile", icon: User, labelKey: "profile" },
+  { key: "tickets", href: "/mypage/tickets", icon: Ticket, labelKey: "unusedTickets" },
   { key: "payments", href: "/mypage/payments", icon: CreditCard, labelKey: "paymentHistory" },
-  { key: "subscription", href: "/mypage/subscription", icon: Crown, labelKey: "subscription" },
 ] as const;
 
 export default function MyPage() {
@@ -80,28 +80,28 @@ export default function MyPage() {
               className="flex items-center gap-2 text-sm text-red-400/60 hover:text-red-400 transition-colors mx-auto"
             >
               <Trash2 size={14} />
-              계정 삭제
+              {t("deleteAccount")}
             </button>
           ) : (
             <GoldCard className="border-red-500/30 bg-red-900/10">
               <div className="flex flex-col items-center gap-3 py-2">
                 <AlertTriangle size={24} className="text-red-400" />
                 <p className="text-sm text-red-400 text-center font-medium">
-                  정말 계정을 삭제하시겠습니까?
+                  {t("deleteConfirm")}
                 </p>
                 <p className="text-xs text-red-400/60 text-center">
-                  모든 데이터가 영구적으로 삭제됩니다.
+                  {t("deleteWarning")}
                 </p>
                 <div className="flex gap-3 mt-1">
                   <GoldButton variant="secondary" size="sm" onClick={() => setShowDeleteConfirm(false)}>
-                    취소
+                    {t("cancel")}
                   </GoldButton>
                   <button
                     onClick={handleDeleteAccount}
                     disabled={deleting}
                     className="px-4 py-1.5 text-sm rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors disabled:opacity-50"
                   >
-                    {deleting ? "삭제 중..." : "삭제 확인"}
+                    {deleting ? t("deleting") : t("confirmDelete")}
                   </button>
                 </div>
               </div>

@@ -16,9 +16,9 @@ async function serverRequest<T>(
   endpoint: string,
   body: unknown,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<T> {
-  const token = generateServiceToken(userId, tier);
+  const token = generateServiceToken(userId, readingType);
   const url = `${API_SERVER_URL}${endpoint}`;
 
   const response = await fetch(url, {
@@ -47,74 +47,74 @@ async function serverRequest<T>(
 export async function calculateSaju(
   birthInfo: BirthInput,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<SajuCalculateResponse> {
   return serverRequest<SajuCalculateResponse>(
     "/saju/calculate",
     { birth: birthInfo },
     userId,
-    tier
+    readingType
   );
 }
 
 export async function getDailyFortune(
   request: FortuneRequest,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<FortuneResponse> {
   return serverRequest<FortuneResponse>(
     "/fortune/daily",
     request,
     userId,
-    tier
+    readingType
   );
 }
 
 export async function getMonthlyFortune(
   request: FortuneRequest,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<FortuneResponse> {
   return serverRequest<FortuneResponse>(
     "/fortune/monthly",
     request,
     userId,
-    tier
+    readingType
   );
 }
 
 export async function getCompatibility(
   request: CompatibilityRequest,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<CompatibilityResponse> {
   return serverRequest<CompatibilityResponse>(
     "/compatibility/analyze",
     request,
     userId,
-    tier
+    readingType
   );
 }
 
 export async function getSinsal(
   birthInfo: BirthInput,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<SajuCalculateResponse> {
   return serverRequest<SajuCalculateResponse>(
     "/saju/sinsal",
     { birth: birthInfo },
     userId,
-    tier
+    readingType
   );
 }
 
 export async function streamSajuReading(
   request: SajuReadingRequest,
   userId: string,
-  tier: "free" | "premium" = "free"
+  readingType: string
 ): Promise<Response> {
-  const token = generateServiceToken(userId, tier);
+  const token = generateServiceToken(userId, readingType);
   const url = `${API_SERVER_URL}/saju/reading`;
 
   const response = await fetch(url, {

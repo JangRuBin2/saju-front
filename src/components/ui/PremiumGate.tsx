@@ -1,26 +1,25 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
 import { Link } from "@/i18n/navigation";
 import { GoldCard } from "./GoldCard";
 import { GoldButton } from "./GoldButton";
-import { Lock, Crown } from "lucide-react";
+import { Lock, Ticket } from "lucide-react";
 
 const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
 
-interface PremiumGateProps {
-  errorType: "usage_limit" | "premium_required" | "auth_required";
+interface PaymentGateProps {
+  errorType: "ticket_required" | "auth_required";
+  readingType?: string;
   message?: string;
 }
 
-export function PremiumGate({ errorType, message }: PremiumGateProps) {
+export function PaymentGate({ errorType, readingType, message }: PaymentGateProps) {
   const t = useTranslations("Usage");
-  const { data: session } = useSession();
 
   if (isTestMode) return null;
 
-  if (errorType === "auth_required" || (!session && errorType === "usage_limit")) {
+  if (errorType === "auth_required") {
     return (
       <GoldCard className="text-center py-8">
         <Lock size={32} className="mx-auto text-gold-500 mb-3" strokeWidth={1.5} />
@@ -29,7 +28,7 @@ export function PremiumGate({ errorType, message }: PremiumGateProps) {
         </p>
         <p className="text-xs text-gold-600 mb-4">{message}</p>
         <Link href="/login">
-          <GoldButton className="mx-auto">{t("loginRequired")}</GoldButton>
+          <GoldButton className="mx-auto">{t("loginButton")}</GoldButton>
         </Link>
       </GoldCard>
     );
@@ -37,16 +36,17 @@ export function PremiumGate({ errorType, message }: PremiumGateProps) {
 
   return (
     <GoldCard className="text-center py-8">
-      <Crown size={32} className="mx-auto text-gold-400 mb-3" strokeWidth={1.5} />
+      <Ticket size={32} className="mx-auto text-gold-400 mb-3" strokeWidth={1.5} />
       <p className="text-sm font-medium text-gold-300 mb-1">
-        {errorType === "premium_required"
-          ? t("premiumRequired")
-          : t("limitReached")}
+        {t("ticketRequired")}
       </p>
       <p className="text-xs text-gold-600 mb-4">{message}</p>
-      <Link href="/payment">
-        <GoldButton className="mx-auto">{t("upgradeToPremium")}</GoldButton>
+      <Link href={readingType ? `/payment?type=${readingType}` : "/payment"}>
+        <GoldButton className="mx-auto">{t("purchaseTicket")}</GoldButton>
       </Link>
     </GoldCard>
   );
 }
+
+// Keep backward compatibility alias
+export { PaymentGate as PremiumGate };

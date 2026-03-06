@@ -1,6 +1,6 @@
 {
   "Common": {
-    "appName": "Saju Myeongri",
+    "appName": "Epic Fortune",
     "loading": "Loading...",
     "error": "An error occurred",
     "retry": "Retry",
@@ -21,7 +21,7 @@
     "mypage": "MY"
   },
   "Home": {
-    "title": "Saju Myeongri",
+    "title": "Epic Fortune",
     "subtitle": "Wisdom of Eastern philosophy to illuminate your destiny",
     "sajuCard": "Four Pillars",
     "sajuDesc": "Your destiny based on birth date and time",
@@ -119,7 +119,7 @@
   "Auth": {
     "login": "Login",
     "logout": "Logout",
-    "loginTitle": "Welcome to Saju Myeongri",
+    "loginTitle": "Welcome to Epic Fortune",
     "loginSubtitle": "Start easily with social login",
     "kakaoLogin": "Login with Kakao",
     "naverLogin": "Login with Naver",

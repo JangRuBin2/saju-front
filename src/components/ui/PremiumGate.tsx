@@ -7,6 +7,8 @@ import { GoldCard } from "./GoldCard";
 import { GoldButton } from "./GoldButton";
 import { Lock, Crown } from "lucide-react";
 
+const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
+
 interface PremiumGateProps {
   errorType: "usage_limit" | "premium_required" | "auth_required";
   message?: string;
@@ -15,6 +17,8 @@ interface PremiumGateProps {
 export function PremiumGate({ errorType, message }: PremiumGateProps) {
   const t = useTranslations("Usage");
   const { data: session } = useSession();
+
+  if (isTestMode) return null;
 
   if (errorType === "auth_required" || (!session && errorType === "usage_limit")) {
     return (

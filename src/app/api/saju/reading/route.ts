@@ -5,26 +5,36 @@ import { checkUsageLimit, recordUsage } from "@/lib/server/usage-limiter";
 import { streamSajuReading } from "@/lib/server/api-server-client";
 
 export async function POST(request: NextRequest) {
-  const session = await auth();
-  const userId = session?.user?.id ?? null;
-  const tier = userId ? await getUserTier(userId) : "free";
-  const sessionId = userId ? null : "anonymous";
-  const effectiveUserId = userId || "anonymous";
+  const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
 
-  const { allowed } = await checkUsageLimit(
-    userId,
-    sessionId,
-    "saju_reading",
-    tier
-  );
-  if (!allowed) {
-    return new Response(
-      JSON.stringify({
-        error: "UsageLimitError",
-        message: "Daily usage limit reached for saju_reading",
-      }),
-      { status: 429, headers: { "Content-Type": "application/json" } }
+  let effectiveUserId = "anonymous";
+  let tier: "free" | "premium" = "free";
+
+  if (isTestMode) {
+    effectiveUserId = "test-user";
+    tier = "premium";
+  } else {
+    const session = await auth();
+    const userId = session?.user?.id ?? null;
+    tier = userId ? await getUserTier(userId) : "free";
+    const sessionId = userId ? null : "anonymous";
+    effectiveUserId = userId || "anonymous";
+
+    const { allowed } = await checkUsageLimit(
+      userId,
+      sessionId,
+      "saju_reading",
+      tier
     );
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({
+          error: "UsageLimitError",
+          message: "Daily usage limit reached for saju_reading",
+        }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
+    }
   }
 
   const body = await request.json();
@@ -36,8 +46,13 @@ export async function POST(request: NextRequest) {
       throw new Error("No response body from API server");
     }
 
-    // Record usage on successful stream start
-    await recordUsage(userId, sessionId, "saju_reading");
+    // Record usage on successful stream start (skip in test mode)
+    if (!isTestMode) {
+      const session = await auth();
+      const userId = session?.user?.id ?? null;
+      const sessionId = userId ? null : "anonymous";
+      await recordUsage(userId, sessionId, "saju_reading");
+    }
 
     // Pass through the SSE stream
     return new Response(apiResponse.body, {

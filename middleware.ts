@@ -20,6 +20,7 @@ function getLocaleFromPathname(pathname: string): string {
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const pathnameWithoutLocale = getPathnameWithoutLocale(pathname);
+  const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
 
   // Check for auth session cookie (next-auth session token)
   const sessionToken =
@@ -33,8 +34,8 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  // Redirect unauthenticated users from protected routes to login
-  if (!isAuthenticated && PROTECTED_ROUTES.some((r) => pathnameWithoutLocale.startsWith(r))) {
+  // Redirect unauthenticated users from protected routes to login (skip in test mode)
+  if (!isTestMode && !isAuthenticated && PROTECTED_ROUTES.some((r) => pathnameWithoutLocale.startsWith(r))) {
     const locale = getLocaleFromPathname(pathname);
     const callbackUrl = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
     return NextResponse.redirect(new URL(`/${locale}/login?callbackUrl=${callbackUrl}`, request.url));

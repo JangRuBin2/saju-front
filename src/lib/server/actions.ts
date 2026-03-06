@@ -16,11 +16,16 @@ import type {
   CompatibilityResponse,
 } from "@/types/api";
 
+const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
+
 async function getAuthContext(): Promise<{
   userId: string | null;
   sessionId: string | null;
   tier: "free" | "premium";
 }> {
+  if (isTestMode) {
+    return { userId: "test-user", sessionId: null, tier: "premium" };
+  }
   const session = await auth();
   const userId = session?.user?.id ?? null;
   const tier = userId ? await getUserTier(userId) : "free";
@@ -32,6 +37,19 @@ async function withUsageCheck<T>(
   action: string,
   fn: (userId: string, tier: "free" | "premium") => Promise<T>
 ): Promise<ActionResult<T>> {
+  if (isTestMode) {
+    try {
+      const data = await fn("test-user", "premium");
+      return { success: true, data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Server error",
+        errorType: "server_error",
+      };
+    }
+  }
+
   const { userId, sessionId, tier } = await getAuthContext();
   const effectiveUserId = userId || sessionId || "anonymous";
 

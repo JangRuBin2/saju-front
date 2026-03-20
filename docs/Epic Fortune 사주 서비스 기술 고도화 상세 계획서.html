@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <title>Epic Fortune 고도화 계획서</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&amp;family=Noto+Serif+KR:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif KR', serif;
+            color: #0a0e1a;
+        }
+        h1 {
+            border-bottom: 3px solid #d4a012;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        h2 {
+            background-color: #0a0e1a;
+            color: #f5c526;
+            padding: 12px 20px;
+            margin-top: 60px;
+            border-left: 6px solid #d4a012;
+            border-radius: 4px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+        }
+        h2 .section-num {
+            background-color: #d4a012;
+            color: #0a0e1a;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        h3 {
+            color: #0a0e1a;
+            border-bottom: 2px solid #0a0e1a;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #d4a012;
+            margin-top: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border-left: 4px solid #d4a012;
+        }
+        .header-brand {
+            text-align: center;
+            background-color: #0a0e1a;
+            color: #d4a012;
+            padding: 50px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header-brand h1 {
+            color: #d4a012;
+            border: none;
+            margin: 0;
+            font-size: 3.5em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+        .header-brand p {
+            color: #a0aec0;
+            font-size: 1.3em;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+        .meta-info {
+            font-size: 0.9em; 
+            margin-top: 20px; 
+            color: #718096;
+            border-top: 1px solid #2d3748;
+            padding-top: 15px;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f7fafc;
+            color: #2d3748;
+            font-weight: bold;
+            border-bottom: 2px solid #cbd5e0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            color: white;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .badge-critical { background-color: #e53e3e; }
+        .badge-high { background-color: #dd6b20; }
+        .badge-medium { background-color: #3182ce; }
+        .badge-low { background-color: #718096; }
+        
+        .code-block {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 20px 0;
+            white-space: pre;
+            line-height: 1.5;
+            border: 1px solid #2d3748;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #1a202c;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 0 -40px 40px -40px;
+            text-align: center;
+        }
+        .sticky-nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.85em;
+            font-weight: 500;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .sticky-nav a:hover {
+            background-color: #2d3748;
+            color: #d4a012;
+        }
+        .info-box {
+            background-color: #ebf8ff;
+            border-left: 5px solid #4299e1;
+            padding: 20px;
+            margin: 25px 0;
+            color: #2c5282;
+            border-radius: 0 4px 4px 0;
+        }
+        .warning-box {
+            background-color: #fffaf0;
+            border-left: 5px solid #ed8936;
+            padding: 20px;
+            margin: 25px 0;
+            color: #744210;
+            border-radius: 0 4px 4px 0;
+        }
+        .success-box {
+            background-color: #f0fff4;
+            border-left: 5px solid #48bb78;
+            padding: 20px;
+            margin: 25px 0;
+            color: #22543d;
+            border-radius: 0 4px 4px 0;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 50px;
+        }
+        .toc h3 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        .toc ul {
+            columns: 2;
+            column-gap: 40px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            color: #d4a012;
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #718096;
+            font-size: 0.9em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body style="">
+
+    <div class="sticky-nav">
+        <a href="#section-1">1. 현황</a>
+        <a href="#section-2">2. 가격</a>
+        <a href="#section-3">3. 전환</a>
+        <a href="#section-4">4. UI/UX</a>
+        <a href="#section-5">5. AI품질</a>
+        <a href="#section-6">6. 콘텐츠</a>
+        <a href="#section-7">7. 바이럴</a>
+        <a href="#section-8">8. 개인화</a>
+        <a href="#section-9">9. 마케팅</a>
+        <a href="#section-10">10. 기술</a>
+        <a href="#section-11">11. 로드맵</a>
+        <a href="#section-12">12. 코드</a>
+    </div>
+
+    <div class="header-brand">
+        <h1>Epic Fortune</h1>
+        <p>프리미엄 AI 사주 서비스 기술 고도화 계획서</p>
+        <div class="meta-info">
+            개발자 가이드 (Developer Reference Guide) | Version 2.1 | 2026-03
+        </div>
+    </div>
+
+    <div class="toc">
+        <h3>📑 상세 목차 (Table of Contents)</h3>
+        <ul>
+            <li><a href="#section-1">1. 프로젝트 현황 진단 (Current State Analysis)</a></li>
+            <li><a href="#section-2">2. 가격 정책 전면 개편 (Pricing Strategy Overhaul)</a></li>
+            <li><a href="#section-3">3. 무료/유료 전환 전략 (Conversion Optimization)</a></li>
+            <li><a href="#section-4">4. UI/UX 전면 개편 계획 (UI/UX Enhancement)</a></li>
+            <li><a href="#section-5">5. AI 해석 품질 고도화 (AI Quality Enhancement)</a></li>
+            <li><a href="#section-6">6. 콘텐츠 확장 계획 (Content Expansion)</a></li>
+            <li><a href="#section-7">7. 소셜 공유 및 바이럴 기능 (Viral &amp; Social Features)</a></li>
+            <li><a href="#section-8">8. 개인화 및 재방문 유도 (Personalization &amp; Retention)</a></li>
+            <li><a href="#section-9">9. SEO 및 마케팅 최적화 (SEO &amp; Marketing)</a></li>
+            <li><a href="#section-10">10. 기술적 개선 사항 (Technical Improvements)</a></li>
+            <li><a href="#section-11">11. 구현 우선순위 로드맵 (Implementation Roadmap)</a></li>
+            <li><a href="#section-12">12. 핵심 코드 구현 가이드 (Key Implementation Guides)</a></li>
+        </ul>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div id="section-1">
+        <h2><span class="section-num">1</span> 프로젝트 현황 진단 (Current State Analysis)</h2>
+        <p>현재 Epic Fortune 프로젝트는 기술적인 기반(Next.js, FastAPI, Streaming AI)은 매우 탄탄하나, <strong>상품성(Product Market Fit)과 수익화 모델(Monetization)</strong> 측면에서 개선이 시급합니다.</p>
+
+        <h3>1-1. 완성도 강점 분석 (5가지)</h3>
+        <ul>
+            <li><strong>기술 스택 우수성</strong>: Next.js + FastAPI + Redis 아키텍처는 확장성과 성능 면에서 매우 우수함.</li>
+            <li><strong>AI 통합</strong>: Server-Sent Events(SSE)를 통한 실시간 스트리밍 구현은 사용자 경험에 큰 강점.</li>
+            <li><strong>글로벌 준비</strong>: 4개국어 지원 및 다국어 아키텍처가 이미 구현되어 있음.</li>
+            <li><strong>디자인 시스템</strong>: "Midnight Bookshop"이라는 명확한 브랜드 컨셉 보유.</li>
+            <li><strong>결제 인프라</strong>: TossPayments 기본 연동 완료로 즉시 수익화 가능 상태.</li>
+        </ul>
+
+        <h3>1-2. 핵심 문제점 6가지 (Critical Issues)</h3>
+        <table>
+            <tbody><tr>
+                <th style="width: 15%">영역</th>
+                <th style="width: 20%">문제점</th>
+                <th style="width: 35%">상세 분석</th>
+                <th style="width: 20%">비즈니스 영향</th>
+                <th style="width: 10%">심각도</th>
+            </tr>
+            <tr>
+                <td><strong>가격 정책</strong></td>
+                <td>저가 정책 (1,100원)</td>
+                <td>프리미엄 AI 해석을 표방하면서 1,100원이라는 가격은 서비스의 가치를 스스로 깎아내림. 결제 수수료를 고려하면 마진도 매우 낮음.</td>
+                <td>수익성 악화, 브랜드 가치 하락</td>
+                <td><span class="badge badge-critical">긴급</span></td>
+            </tr>
+            <tr>
+                <td><strong>무료 티어</strong></td>
+                <td>과도한 혜택</td>
+                <td>하루 1회 무료 제공은 재방문에는 좋으나, 대부분의 라이트 유저는 결제할 필요성을 전혀 느끼지 못함.</td>
+                <td>유료 전환율(CVR) 저조</td>
+                <td><span class="badge badge-critical">긴급</span></td>
+            </tr>
+            <tr>
+                <td><strong>온보딩</strong></td>
+                <td>플로우 부재</td>
+                <td>첫 방문자가 서비스의 가치를 이해하고 자신의 사주를 입력하기까지의 설득 과정이 없음.</td>
+                <td>높은 이탈률(Bounce Rate)</td>
+                <td><span class="badge badge-high">높음</span></td>
+            </tr>
+            <tr>
+                <td><strong>바이럴</strong></td>
+                <td>공유 기능 미비</td>
+                <td>운세 서비스의 핵심 성장 동력인 '결과 공유' 기능이 없음.</td>
+                <td>자연 유입(Organic) 기회 상실</td>
+                <td><span class="badge badge-high">높음</span></td>
+            </tr>
+            <tr>
+                <td><strong>AI 품질</strong></td>
+                <td>모델 격차</td>
+                <td>무료(Haiku)와 유료(Sonnet)의 품질 차이가 너무 커서, 무료 체험자가 유료 결제로 이어지지 않을 가능성 존재.</td>
+                <td>사용자 경험 불일치</td>
+                <td><span class="badge badge-medium">중간</span></td>
+            </tr>
+            <tr>
+                <td><strong>UX</strong></td>
+                <td>시각적 단조로움</td>
+                <td>결과 페이지가 텍스트 위주임. 모바일 세대에게는 시각적 데이터(차트, 그래프)가 필수적임.</td>
+                <td>체류 시간 감소</td>
+                <td><span class="badge badge-medium">중간</span></td>
+            </tr>
+        </tbody></table>
+
+        <h3>1-3. 경쟁 서비스 분석 및 차별화</h3>
+        <p>기존 시장의 주요 플레이어들과의 비교 분석입니다.</p>
+        <ul>
+            <li><strong>점신/운세나라 (전통 강자):</strong> 방대한 DB와 커뮤니티가 강점이나, UI가 올드하고 AI 해석이 아닌 룰 기반 텍스트 조합 방식. <br>→ <strong>Epic Fortune 전략:</strong> 압도적인 AI 자연어 해석 품질과 모던한 UI로 공략.</li>
+            <li><strong>헬로우봇 (챗봇형):</strong> 친근한 캐릭터가 강점이나 깊이 있는 분석보다는 엔터테인먼트 성격이 강함. <br>→ <strong>Epic Fortune 전략:</strong> "정통 명리학의 현대적 해석"이라는 전문성 강조.</li>
+            <li><strong>AI 사주 앱들:</strong> 최근 우후죽순 생겨나고 있으나 대부분 GPT-3.5 수준의 얕은 해석. <br>→ <strong>Epic Fortune 전략:</strong> Claude 3 Opus/Sonnet을 활용한 초고품질 심층 분석.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div id="section-2">
+        <h2><span class="section-num">2</span> 가격 정책 전면 개편 (Pricing Strategy Overhaul) <span class="badge badge-critical">긴급</span></h2>
+
+        <h3>2-1. 현행 가격의 문제점 상세 분석</h3>
+        <p>현재 1,100원(~$0.80) 모델은 PG사 수수료(약 3.3% + 부가세)와 AI 토큰 비용을 제외하면 수익성이 거의 없습니다. 또한, '저렴한 운세'라는 인식을 주어 브랜드 가치를 하락시킵니다. <strong>'프리미엄 컨설팅'</strong> 모델로 전환해야 합니다.</p>
+        <div class="warning-box">
+            <strong>원가 분석 예시:</strong> 1,100원 결제 시 → PG수수료 36원, AI 토큰비용(Sonnet) 약 150원, 서버비용 등 제외하면 마진이 800원 미만. 마케팅비(CAC)를 감당할 수 없음.
+        </div>
+
+        <h3>2-2. 신규 가격 정책 상세 제안</h3>
+        
+        <h4>A. 무료 티어 재설계 (Free Tier)</h4>
+        <ul>
+            <li><strong>기존:</strong> 매일 1회 무료 (과도한 혜택)</li>
+            <li><strong>변경:</strong> <strong>회원가입 시 "스타터 크레딧 3회" 지급 (평생 1회)</strong>. 이후 무료 없음.</li>
+            <li><strong>제한 사항:</strong> 무료 체험 시에는 Claude Haiku 모델 사용 + 300자 핵심 요약만 제공. "상세 해석 잠금" UI 적용하여 결제 유도.</li>
+        </ul>
+
+        <h4>B. 크레딧 단건 구매 (Pay-As-You-Go)</h4>
+        <table>
+            <tbody><tr>
+                <th>서비스명</th>
+                <th>가격</th>
+                <th>특징</th>
+            </tr>
+            <tr>
+                <td>오늘의 운세</td>
+                <td>1,900원</td>
+                <td>하루 24시간 동안 유효</td>
+            </tr>
+            <tr>
+                <td>사주풀이 (기본)</td>
+                <td>3,900원</td>
+                <td>평생 소장, 기본 분석</td>
+            </tr>
+            <tr>
+                <td>사주풀이 (심층)</td>
+                <td>5,900원</td>
+                <td><strong>Claude Opus 모델 사용</strong>, 심층 분석</td>
+            </tr>
+            <tr>
+                <td>궁합 분석</td>
+                <td>4,900원</td>
+                <td>두 사람의 조화도 분석</td>
+            </tr>
+            <tr>
+                <td>연간 운세</td>
+                <td>9,900원</td>
+                <td>1년 전체 월별 운세 (객단가 상승 견인)</td>
+            </tr>
+        </tbody></table>
+
+        <h4>C. 구독 플랜 (Subscription)</h4>
+        <table>
+            <tbody><tr>
+                <th>플랜명</th>
+                <th>가격 (월)</th>
+                <th>제공 혜택</th>
+            </tr>
+            <tr>
+                <td><strong>Basic</strong></td>
+                <td>9,900원</td>
+                <td>오늘의 운세 무제한 + 정밀 사주풀이 월 3회 + 월간운세 1회</td>
+            </tr>
+            <tr>
+                <td><strong>Premium</strong></td>
+                <td>19,900원</td>
+                <td><strong>모든 서비스 무제한</strong> + Claude Sonnet 풀 품질 + 우선 상담(AI)</td>
+            </tr>
+            <tr>
+                <td><strong>Annual</strong></td>
+                <td>연간 결제</td>
+                <td>월 구독료 × 10개월 (2개월 무료 할인 효과)</td>
+            </tr>
+        </tbody></table>
+
+        <h4>D. 크레딧 번들 (Volume Discount)</h4>
+        <ul>
+            <li>5,000 크레딧: 4,500원 (10% 할인)</li>
+            <li>10,000 크레딧: 8,000원 (20% 할인)</li>
+            <li>30,000 크레딧: 21,000원 (30% 할인)</li>
+        </ul>
+
+        <h3>2-3. 가격 표시 컴포넌트 구현 상세</h3>
+        <p>가격 정책 변경에 따른 UI 컴포넌트 구조 예시입니다.</p>
+        <div class="code-block">
+// components/pricing/PricingCard.tsx
+import { CheckIcon } from '@heroicons/react/24/solid';
+
+interface PricingFeature {
+  text: string;
+  included: boolean;
+}
+
+interface PricingCardProps {
+  tier: string;
+  price: number;
+  period?: string;
+  features: PricingFeature[];
+  isPopular?: boolean;
+  onSelect: () =&gt; void;
+}
+
+export const PricingCard = ({ tier, price, period, features, isPopular, onSelect }: PricingCardProps) =&gt; {
+  return (
+    <div classname="{`relative" p-8="" rounded-2xl="" border="" transition-all="" duration-300="" ${="" ispopular="" ?="" 'border-gold-500="" bg-midnight-800="" shadow-xl="" shadow-gold-500="" 10="" scale-105="" z-10'="" :="" 'border-midnight-600="" bg-midnight-900="" hover:border-midnight-500'="" }`}="">
+      {isPopular &amp;&amp; (
+        <span classname="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-400 to-gold-600 text-midnight-950 text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+          MOST POPULAR
+        </span>
+      )}
+      <h3 classname="text-xl font-serif text-gold-100 mb-2">{tier}</h3>
+      <div classname="my-6 flex items-baseline">
+        <span classname="text-4xl font-bold text-white">₩{price.toLocaleString()}</span>
+        {period &amp;&amp; <span classname="text-gray-400 ml-1">/{period}</span>}
+      </div>
+      <ul classname="space-y-4 mb-8">
+        {features.map((feature, idx) =&gt; (
+          <li key="{idx}" classname="{`flex" items-start="" text-sm="" ${feature.included="" ?="" 'text-gray-300'="" :="" 'text-gray-600'}`}="">
+            <checkicon classname="{`w-5" h-5="" mr-3="" shrink-0="" ${feature.included="" ?="" 'text-gold-500'="" :="" 'text-gray-700'}`}="">
+            <span classname="{feature.included" ?="" ''="" :="" 'line-through'}="">{feature.text}</span>
+          </checkicon></li>
+        ))}
+      </ul>
+      <button onclick="{onSelect}" classname="{`w-full" py-3="" rounded-lg="" font-bold="" transition-colors="" ${="" ispopular="" ?="" 'bg-gradient-to-r="" from-gold-400="" to-gold-600="" text-midnight-900="" hover:from-gold-300="" hover:to-gold-500'="" :="" 'bg-midnight-700="" text-white="" border="" border-midnight-600="" hover:bg-midnight-600'="" }`}="">
+        시작하기
+      </button>
+    </div>
+  );
+};
+        </div>
+
+        <h3>2-4. TossPayments 구독 결제 연동 (Billing Key)</h3>
+        <p>정기 결제 구현을 위해 '빌링키(Billing Key)' 발급 방식이 필요합니다.</p>
+        <div class="code-block">
+// 1. 클라이언트: 빌링키 발급 요청
+const requestBillingAuth = async () =&gt; {
+  const tossPayments = await loadTossPayments(clientKey);
+  await tossPayments.requestBillingAuth('카드', {
+    customerKey,
+    successUrl: `${window.location.origin}/api/billing/success`,
+    failUrl: `${window.location.origin}/api/billing/fail`,
+  });
+};
+
+// 2. 서버 (API Route): 빌링키 발급 및 저장 (/api/billing/register)
+// successUrl로 리다이렉트될 때 authKey가 전달됨
+const registerBillingKey = async (authKey, customerKey) =&gt; {
+  const response = await fetch('https://api.tosspayments.com/v1/billing/authorizations/issue', {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${encryptedSecretKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ authKey, customerKey }),
+  });
+  
+  const { billingKey } = await response.json();
+  // DB에 billingKey 암호화하여 저장
+  await prisma.subscription.create({
+    data: { userId, billingKey, planId, nextPaymentDate: new Date() }
+  });
+};
+
+// 3. 서버 (Cron Job): 정기 결제 실행 (/api/billing/charge)
+// Vercel Cron 등으로 매일 00시에 실행
+const chargeSubscriptions = async () =&gt; {
+  const dueSubscriptions = await prisma.subscription.findMany({
+    where: { nextPaymentDate: { lte: new Date() } }
+  });
+
+  for (const sub of dueSubscriptions) {
+    await fetch(`https://api.tosspayments.com/v1/billing/${sub.billingKey}`, {
+      method: 'POST',
+      headers: { ... },
+      body: JSON.stringify({
+        amount: sub.amount,
+        orderId: generateOrderId(),
+        orderName: sub.planName,
+        customerKey: sub.customerKey,
+      })
+    });
+    // 다음 결제일 업데이트 로직
+  }
+};
+        </div>
+
+        <h3>2-5. 가격 인상 마이그레이션 전략</h3>
+        <ul>
+            <li><strong>기존 유료 구매자:</strong> "얼리버드 평생 할인" 혜택 제공 (기존 가격 유지 또는 크레딧 대량 지급).</li>
+            <li><strong>공지:</strong> "3월 15일부터 가격이 인상됩니다. 지금 평생 최저가로 구독하세요."라는 메시지로 구매 유도 (FOMO 전략).</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div id="section-3">
+        <h2><span class="section-num">3</span> 무료/유료 전환 전략 (Conversion Optimization)</h2>
+
+        <h3>3-1. 온보딩 플로우 설계</h3>
+        <p>사용자가 처음 방문했을 때 즉시 가치를 느끼게 하는 것이 중요합니다.</p>
+        <ul>
+            <li><strong>Step 1 (유입):</strong> "당신의 운명을 읽어드립니다" 문구와 함께 생년월일 입력 유도 (로그인 없이).</li>
+            <li><strong>Step 2 (맛보기):</strong> 만세력 차트와 기본적인 오행 분포만 보여줌 (AI 해석 없음).</li>
+            <li><strong>Step 3 (유혹):</strong> "당신의 사주에는 '도화살'이 숨어있네요. 상세한 의미가 궁금하신가요?" 같은 티저 문구 표시.</li>
+            <li><strong>Step 4 (전환):</strong> "결과 확인하기" 클릭 시 로그인 창 → "가입 축하 3회 무료 이용권 지급!" 모달 팝업.</li>
+        </ul>
+
+        <h3>3-2. Paywall 구현 전략 (Blur/Lock UI)</h3>
+        <p>결과 페이지에서 앞부분만 보여주고 뒷부분을 블러 처리하여 결제를 유도합니다.</p>
+        <div class="code-block">
+// components/readings/PaywallResult.tsx
+export const PaywallResult = ({ content, isPaid, onUnlock }: PaywallProps) =&gt; {
+  if (isPaid) return <div dangerouslysetinnerhtml="{{" __html:="" content="" }}="">;
+
+  // 무료 사용자의 경우 앞 200자만 보여주고 블러 처리
+  const preview = content.substring(0, 200);
+  
+  return (
+    <div classname="relative border border-midnight-700 rounded-lg p-6 bg-midnight-900/50">
+      <div classname="prose prose-invert max-w-none">
+        <div dangerouslysetinnerhtml="{{" __html:="" preview="" }}="">
+      </div>
+      
+      {/* Fade out gradient */}
+      <div classname="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-midnight-950 to-transparent">
+      
+      {/* Unlock CTA */}
+      <div classname="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-8 px-4">
+        <div classname="text-gold-200 mb-4 font-medium text-center">
+          <span classname="block text-2xl mb-1">🔒</span>
+          상세한 전체 해석이 잠겨있습니다
+        </div>
+        <button onclick="{onUnlock}" classname="bg-gradient-to-r from-gold-500 to-amber-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 transition-all transform hover:-translate-y-1">
+          전체 해석 잠금 해제 (3,900원)
+        </button>
+        <p classname="text-gray-500 text-xs mt-3">
+          또는 <span classname="text-gold-400 underline cursor-pointer">구독하고 무제한 보기</span>
+        </p>
+      </div>
+    </div>
+  );
+};
+        </div>
+
+        <h3>3-3. 이탈 방지 팝업 (Exit Intent)</h3>
+        <ul>
+            <li><strong>Trigger:</strong> 마우스 커서가 브라우저 상단(탭 영역)으로 이동할 때 감지.</li>
+            <li><strong>Logic:</strong> `localStorage`를 사용하여 하루에 1번만 노출되도록 제한.</li>
+            <li><strong>Content:</strong> "잠깐! 지금 가입하면 내일의 운세가 무료입니다." 또는 특별 할인 쿠폰 제시.</li>
+        </ul>
+        <div class="code-block">
+// hooks/useExitIntent.ts
+import { useEffect, useState } from 'react';
+
+export const useExitIntent = () =&gt; {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() =&gt; {
+    const handleMouseLeave = (e: MouseEvent) =&gt; {
+      if (e.clientY &lt;= 0) { // Top of the browser
+        const lastShown = localStorage.getItem('exit_intent_shown');
+        const now = new Date().getTime();
+        
+        // 하루(24시간)에 한 번만 표시
+        if (!lastShown || now - parseInt(lastShown) &gt; 24 * 60 * 60 * 1000) {
+          setIsVisible(true);
+          localStorage.setItem('exit_intent_shown', now.toString());
+        }
+      }
+    };
+
+    document.addEventListener('mouseleave', handleMouseLeave);
+    return () =&gt; document.removeEventListener('mouseleave', handleMouseLeave);
+  }, []);
+
+  return { isVisible, close: () =&gt; setIsVisible(false) };
+};
+        </div>
+
+        <h3>3-4. 퍼널 최적화</h3>
+        <ul>
+            <li><strong>결제 이탈 방지:</strong> 결제창에서 뒤로가기 시 "정말 취소하시겠습니까? 특별 할인이 사라집니다." 경고.</li>
+            <li><strong>재방문 유도:</strong> 마지막으로 보던 리딩 타입을 기억했다가 재방문 시 "지난번에 보던 사주풀이를 이어서 보시겠어요?" 메시지 표시.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div id="section-4">
+        <h2><span class="section-num">4</span> UI/UX 전면 개편 계획 (UI/UX Enhancement)</h2>
+
+        <h3>4-1. 홈페이지 (Landing Page) 개편</h3>
+        <ul>
+            <li><strong>Hero 섹션:</strong> 정적인 이미지 대신 <code>Three.js</code>나 <code>Canvas API</code>를 활용한 별자리/오행 인터랙티브 파티클 애니메이션 적용.</li>
+            <li><strong>소셜 프루프:</strong> "현재 1,203명이 운세를 보고 있습니다", "누적 사주 분석 5만 건 돌파" 등의 실시간 데이터 표시 (신뢰도 상승).</li>
+            <li><strong>서비스 그리드:</strong> 각 카드에 가격 표시 추가, "가장 인기" / "신규" 뱃지 적용, 마우스 호버 시 결과 미리보기 줌인 효과.</li>
+        </ul>
+
+        <h3>4-2. 사주 입력 폼 완전 재설계</h3>
+        <div class="success-box">
+            기존의 단순 입력 폼을 "운명을 알아보는 여정"처럼 느껴지도록 <strong>Step Wizard UI</strong>로 변경합니다.
+        </div>
+        <ul>
+            <li><strong>Step 1 (기본정보):</strong> 이름, 성별 (아이콘 선택)</li>
+            <li><strong>Step 2 (생년월일):</strong> 직관적인 DatePicker, 양력/음력 탭 전환, 윤달 자동 계산 체크박스.</li>
+            <li><strong>Step 3 (태어난 시간):</strong> 시간 선택 or "시간 모름" 체크박스 (시간 불명 시 삼주 분석으로 전환 안내).</li>
+            <li><strong>피드백:</strong> 입력 완료 즉시 해당 일주(日柱)의 동물 캐릭터(예: 푸른 호랑이)를 애니메이션으로 보여주며 기대감 고취.</li>
+        </ul>
+
+        <h3>4-3. 결과 페이지 대폭 개선 (핵심!)</h3>
+        <p>텍스트 위주의 지루한 결과 페이지를 시각적 정보로 변환합니다.</p>
+        <ul>
+            <li><strong>인터랙티브 차트:</strong> 사주 팔자 8글자를 클릭하면 해당 글자의 의미(오행, 십신, 지장간)가 Popover로 표시됨.</li>
+            <li><strong>오행 분포 시각화:</strong> <code>Recharts</code>의 PieChart 또는 RadarChart를 사용하여 목화토금수 분포를 시각화. 과다/결핍 오행 표시.</li>
+            <li><strong>AI 해석 카드:</strong> 성격, 재물, 연애, 직업, 건강 등 각 카테고리를 아코디언 카드 UI로 분리.</li>
+            <li><strong>공유/저장 바:</strong> 스크롤 시 상단에 고정되는 Sticky Bar에 "저장", "공유", "다시 보기" 버튼 배치.</li>
+        </ul>
+
+        <h3>4-4. 대시보드 전면 개편</h3>
+        <ul>
+            <li><strong>오늘의 운세 요약:</strong> 점수 게이지 바(0~100점)와 날씨 아이콘(맑음, 흐림 등)으로 직관적 표시.</li>
+            <li><strong>행운 아이템:</strong> 오늘의 행운 컬러(색상 칩)와 행운 숫자 뱃지 표시.</li>
+            <li><strong>캘린더 위젯:</strong> 이번 달의 길일(손 없는 날), 주의해야 할 날을 달력에 마킹.</li>
+            <li><strong>구독 배너:</strong> 무료 사용자인 경우 "프리미엄으로 업그레이드하고 모든 운세 잠금 해제" 배너 노출.</li>
+        </ul>
+
+        <h3>4-5. 모바일 UX 개선</h3>
+        <ul>
+            <li><strong>Bottom Navigation:</strong> 모바일에서는 홈/운세/저장/마이페이지 탭 바 하단 고정.</li>
+            <li><strong>터치 제스처:</strong> 결과 페이지의 섹션 간 스와이프 이동 지원.</li>
+            <li><strong>PWA 지원:</strong> 홈 화면에 추가할 수 있도록 manifest.json 및 아이콘 설정.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div id="section-5">
+        <h2><span class="section-num">5</span> AI 해석 품질 고도화 (AI Quality Enhancement)</h2>
+
+        <h3>5-1. 현행 AI 구조의 문제점 분석</h3>
+        <ul>
+            <li>Haiku와 Sonnet 혼용으로 인한 품질 불일치.</li>
+            <li>프롬프트가 리딩 타입별로 충분히 세분화되지 않음.</li>
+            <li>피드백 루프 부재로 품질 개선이 어려움.</li>
+        </ul>
+
+        <h3>5-2. 모델 사용 전략 개편</h3>
+        <ul>
+            <li><strong>무료 (체험):</strong> Claude 3 Haiku 사용. 빠르고 비용 효율적. 300자 내외의 핵심 요약만 제공.</li>
+            <li><strong>유료 (표준):</strong> Claude 3.5 Sonnet 사용. 논리적이고 깊이 있는 해석 제공.</li>
+            <li><strong>프리미엄 (심화):</strong> Claude 3.7 Sonnet 또는 Opus 사용 (선택적). 복잡한 신살이나 평생 운세 등 고관여 서비스에 적용.</li>
+        </ul>
+
+        <h3>5-3. 프롬프트 엔지니어링 고도화 가이드</h3>
+        <p>각 리딩 타입에 맞는 전문적인 시스템 프롬프트를 적용합니다. 아래는 개선된 프롬프트 예시입니다.</p>
+        <h4>사주풀이 - 개선된 시스템 프롬프트 (한국어)</h4>
+        <div class="code-block">
+당신은 30년 경력의 명리학 전문가입니다. 다음 규칙을 반드시 준수하여 사주를 분석하세요.
+
+[분석 원칙]
+1. **일간(日干) 중심**: 모든 분석은 일간을 기준으로 합니다. 일간의 오행과 강약을 먼저 파악하세요.
+2. **강약 판단**: 월령(月令) 및 전체 오행 분포를 기반으로 신강/신약을 판단하고, 이를 해석의 핵심 기준으로 삼으세요.
+3. **십신(十神) 해석**: 재성(財星), 관성(官星), 인성(印星), 비겁(比劫), 식상(食傷)의 분포와 의미를 해석에 포함하세요.
+4. **대운(大運) 언급**: 현재 대운 기준으로 인생 전체 흐름 중 지금이 어떤 시기인지 설명하세요.
+
+[표현 원칙]
+5. **건설적 어조**: 두려움을 주는 표현을 절대 금지합니다. "~할 수 있으니 주의하세요" 형식을 사용하세요.
+6. **실용적 조언**: 각 영역 말미에 반드시 실천 가능한 조언(행운 색상, 방위, 마음가짐)을 포함하세요.
+7. **금지 사항**: 특정 날짜 예측, 의료/법률 조언, 극단적 부정 예측은 절대 하지 마세요.
+
+[출력 형식] - 반드시 아래 마크다운 구조를 따르세요:
+## ✨ 당신의 사주 핵심
+(1~2줄 요약)
+
+## 🌿 성격과 기질
+(일간 기반 성격 분석)
+
+## 💼 직업과 재능
+(십신 기반 직업 적성)
+
+## 💰 재물 운
+(재성 기반 금전 운)
+
+## 💕 연애와 인연
+(배우자궁 및 도화 분석)
+
+## 🏥 건강
+(취약 오행 기반 건강 주의 사항)
+
+## 🌊 현재 대운 흐름
+(현재 대운 기간 및 조언)
+
+## 🍀 행운의 열쇠
+(행운 색상, 방위, 숫자, 마음가짐)
+        </div>
+        <h4>궁합 분석 - 개선된 프롬프트</h4>
+        <div class="code-block">
+두 사람의 사주를 비교 분석합니다. 다음 사항을 반드시 포함하세요:
+
+1. **일간 오행 관계**: 두 사람의 일간 오행이 상생인지 상극인지 먼저 파악하세요.
+2. **합충형파해(合沖刑破害) 분석**: 지지 간의 합·충·형·파·해 관계를 분석하세요.
+3. **균형 잡힌 시각**: 장점과 주의점을 균형 있게 제시하세요. 나쁜 궁합도 "이 부분을 개선하면 좋은 관계가 될 수 있다"는 방향으로 서술하세요.
+4. **실용적 소통 조언**: 두 사람의 차이점을 기반으로 구체적인 소통 방법을 제안하세요.
+
+[출력 형식]
+## 💑 궁합 총평 (점수: XX/100)
+## 🌟 잘 맞는 점
+## ⚡ 주의할 점
+## 💬 소통 &amp; 관계 유지 팁
+        </div>
+
+        <h3>5-4. AI 응답 품질 평가 시스템</h3>
+        <ul>
+            <li>결과 하단에 "이 해석이 도움이 되었나요?" (👍/👎) 버튼 추가.</li>
+            <li>부정 피드백 시 사유 선택 모달 (너무 일반적임, 맞지 않음, 이해하기 어려움 등).</li>
+            <li>피드백 데이터를 수집하여 프롬프트 튜닝에 활용 (RLHF 유사 방식).</li>
+            <li><strong>FeedbackRating</strong> 테이블 스키마 추가.</li>
+        </ul>
+
+        <h3>5-5. 캐싱 전략 최적화</h3>
+        <ul>
+            <li><strong>오늘의 운세:</strong> TTL 6시간 (같은 날 재방문 시 동일 결과 보장).</li>
+            <li><strong>사주풀이/궁합:</strong> TTL 7일 (생년월일이 같으면 결과도 같아야 함 - 결정론적 일관성).</li>
+            <li>Redis Key Naming: `reading:{type}:{userId}:{dateHash}`</li>
+        </ul>
+
+        <h3>5-6. 스트리밍 UX 개선</h3>
+        <p>현재 전체 텍스트가 한 번에 스트리밍되는 방식을 개선하여, 섹션별로 헤더가 먼저 뜨고 내용이 채워지는 방식으로 변경합니다. 로딩 스켈레톤 UI를 적용하여 대기 시간을 시각적으로 최소화합니다.</p>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div id="section-6">
+        <h2><span class="section-num">6</span> 콘텐츠 확장 계획 (Content Expansion)</h2>
+
+        <h3>6-1. 신규 유료 리딩 타입 8가지</h3>
+        <ol>
+            <li><strong>연간 운세 (Yearly Fortune):</strong> 신년 운세 시즌(12월~2월) 매출 견인. 토정비결 + 사주 명리학 결합.</li>
+            <li><strong>이름 작명/감명 (Naming):</strong> 성명학(수리, 음령오행) 알고리즘 추가. AI가 좋은 한자 추천.</li>
+            <li><strong>택일 (Date Selection):</strong> 결혼, 이사, 계약 등 중요한 날짜 3개 추천.</li>
+            <li><strong>전생/내생 체험:</strong> 엔터테인먼트 요소가 강한 스토리텔링형 콘텐츠.</li>
+            <li><strong>직업/적성 특화:</strong> MBTI와 유사하게 사주 기반의 적성 검사 및 직업 추천.</li>
+            <li><strong>건강 운세:</strong> 오행의 불균형에 따른 취약 장기 분석 및 식습관 가이드.</li>
+            <li><strong>자녀 양육 가이드:</strong> 아이의 기질 분석 및 맞춤 훈육법.</li>
+            <li><strong>펫 사주:</strong> 반려동물의 생일을 기반으로 한 성향 분석 (틈새 시장 공략).</li>
+        </ol>
+
+        <h3>6-2. 셀럽 데이터베이스 확장</h3>
+        <ul>
+            <li><strong>로드맵:</strong> 현 60명 → 200명으로 확장 (배우, 스포츠 스타, 유튜버, 역사적 인물).</li>
+            <li><strong>SEO 페이지:</strong> `/ko/celebrity/bts-jungkook` 같은 형태의 정적 페이지 생성 (Next.js `generateStaticParams`).</li>
+            <li><strong>데이터 구조:</strong> JSON 파일로 관리하며 생년월일, 프로필 이미지, 그룹명 등 포함.</li>
+        </ul>
+
+        <h3>6-2-1. 셀럽 데이터 TypeScript 인터페이스</h3>
+        <div class="code-block">
+// types/celebrity.ts
+export interface Celebrity {
+  id: string;
+  slug: string;          // URL용 (예: 'bts-jungkook')
+  name: { ko: string; en: string; ja?: string; zh?: string };
+  birthDate: string;     // YYYY-MM-DD 형식
+  birthTime?: string;    // HH:MM (없으면 3주 분석)
+  group?: string;        // 소속 그룹
+  category: 'kpop' | 'actor' | 'sports' | 'historical' | 'global';
+  profileImage: string;
+  nationality: string;
+}
+
+// 데이터 예시 (data/celebrities.ts)
+export const celebrities: Celebrity[] = [
+  {
+    id: 'jungkook-1997',
+    slug: 'bts-jungkook',
+    name: { ko: '정국', en: 'Jungkook', ja: 'ジョングク' },
+    birthDate: '1997-09-01',
+    group: 'BTS',
+    category: 'kpop',
+    profileImage: '/celebrities/jungkook.jpg',
+    nationality: 'KR',
+  },
+  // ...
+];
+
+// Next.js 정적 페이지 생성 예시
+// app/[locale]/celebrity/[slug]/page.tsx
+export async function generateStaticParams() {
+  return celebrities.map(c =&gt; ({ slug: c.slug }));
+}
+        </div>
+
+        <h3>6-3. 계절별 특별 콘텐츠</h3>
+        <ul>
+            <li><strong>1월:</strong> 신년 운세, 토정비결.</li>
+            <li><strong>2월:</strong> 입춘 대길 운세, 발렌타인 궁합.</li>
+            <li><strong>8~11월:</strong> 수험생 합격 운세 (수능 시즌).</li>
+            <li><strong>12월:</strong> 연말 결산 및 내년 미리보기.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div id="section-7">
+        <h2><span class="section-num">7</span> 소셜 공유 및 바이럴 기능 (Viral &amp; Social Features) <span class="badge badge-high">높음</span></h2>
+
+        <h3>7-1. 결과 공유 이미지 생성 기능</h3>
+        <p>텍스트 결과 대신, 인스타그램 스토리에 올리기 좋은 예쁜 이미지를 서버에서 동적으로 생성해줍니다.</p>
+        <div class="code-block">
+// app/api/og/saju/route.tsx
+import { ImageResponse } from 'next/og';
+
+export const runtime = 'edge';
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const keyword = searchParams.get('keyword') || '대기만성';
+  const name = searchParams.get('name') || '사용자';
+
+  return new ImageResponse(
+    (
+      <div style="{{" height:="" '100%',="" width:="" display:="" 'flex',="" flexdirection:="" 'column',="" alignitems:="" 'center',="" justifycontent:="" backgroundcolor:="" '#0a0e1a',="" backgroundimage:="" 'radial-gradient(circle="" at="" 50%="" 50%,="" #1a202c="" 0%,="" #0a0e1a="" 100%)',="" color:="" 'white',="" fontfamily:="" 'serif'="" }}="">
+        <div style="{{" color:="" '#d4a012',="" fontsize:="" 24,="" marginbottom:="" 20="" }}="">Epic Fortune</div>
+        <div style="{{" fontsize:="" 60,="" fontweight:="" 'bold',="" background:="" 'linear-gradient(to="" right,="" #f5c526,="" #d4a012)',="" backgroundclip:="" 'text',="" color:="" 'transparent'="" }}="">
+          {keyword}
+        </div>
+        <div style="{{" fontsize:="" 24,="" margintop:="" 20,="" color:="" '#a0aec0'="" }}="">
+          {name}님의 사주 핵심 키워드
+        </div>
+      </div>
+    ),
+    { width: 1200, height: 630 }
+  );
+}
+        </div>
+
+        <h3>7-2. 카카오톡 공유 연동</h3>
+        <p>Kakao JavaScript SDK를 활용하여 피드 형태의 공유 메시지를 보냅니다.</p>
+        <div class="code-block">
+// utils/kakaoShare.ts
+// 1. 먼저 _app.tsx 또는 layout.tsx에서 SDK 초기화
+// <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js">
+// Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
+
+export const shareToKakao = (params: {
+  title: string;
+  description: string;
+  imageUrl: string;
+  shareUrl: string;
+}) => {
+  if (typeof window === 'undefined' || !window.Kakao) return;
+
+  window.Kakao.Share.sendDefault({
+    objectType: 'feed',
+    content: {
+      title: params.title,        // 예: "내 사주 핵심 키워드: 대기만성 🌟"
+      description: params.description,  // 예: "Epic Fortune에서 당신의 운명을 확인하세요"
+      imageUrl: params.imageUrl,  // OG 이미지 URL
+      link: {
+        mobileWebUrl: params.shareUrl,
+        webUrl: params.shareUrl,
+      },
+    },
+    buttons: [
+      {
+        title: '내 운세도 확인하기',
+        link: {
+          mobileWebUrl: params.shareUrl,
+          webUrl: params.shareUrl,
+        },
+      },
+    ],
+  });
+};
+
+// 사용 예시 (결과 페이지에서)
+// shareToKakao({
+//   title: `내 사주 핵심 키워드: ${keyword}`,
+//   description: '나의 사주 운명을 AI로 분석해봤어요!',
+//   imageUrl: `https://epicfortune.ai/api/og/saju?keyword=${keyword}&name=${name}`,
+//   shareUrl: `https://epicfortune.ai/ko/saju?ref=share`,
+// });
+        </div>
+
+        <h3>7-3. 친구 초대 레퍼럴 시스템</h3>
+        <ul>
+            <li><strong>로직:</strong> 사용자마다 `nanoid`로 고유 초대 코드 생성.</li>
+            <li><strong>보상:</strong> 친구가 코드로 가입 시 친구에게 3회 무료권, 나에게 1회 프리미엄 티켓 지급.</li>
+            <li><strong>구현:</strong> `/api/referral/register` 엔드포인트에서 코드 검증 및 리워드 트랜잭션 처리.</li>
+        </ul>
+
+        <h3>7-4. 공개 프로필 페이지</h3>
+        <p>사용자가 자신의 사주 요약을 공개 URL(`/profile/[shareToken]`)로 공유할 수 있게 합니다. 개인정보(생년월일)는 숨기고 해석 결과만 보여주며, 방문자에게 "내 사주도 보기" CTA를 노출합니다.</p>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div id="section-8">
+        <h2><span class="section-num">8</span> 개인화 및 재방문 유도 (Personalization & Retention)</h2>
+
+        <h3>8-1. 열람 히스토리 & 저장</h3>
+        <p>사용자가 본 운세를 다시 볼 수 없다면 재방문 이유가 사라집니다. DB에 결과 JSON을 저장하고 언제든 다시 볼 수 있게 합니다. 마이페이지에 타임라인 UI로 표시합니다.</p>
+        
+        <h3>8-2. 웹 푸시 알림 (FCM)</h3>
+        <ul>
+            <li><strong>기술:</strong> `next-pwa` + Firebase Cloud Messaging (FCM).</li>
+            <li><strong>알림 시나리오:</strong>
+                <ul>
+                    <li>매일 아침 8시: "오늘의 행운 컬러는 '골드'입니다."</li>
+                    <li>매월 1일: "3월의 운세가 도착했습니다."</li>
+                    <li>미사용 알림: "무료 체험권이 1장 남았습니다. 오늘 사용해보세요."</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>8-3. 이메일 마케팅 자동화 (Resend)</h3>
+        <div class="info-box">
+            이메일 마케팅은 CAC(고객 획득 비용) 없이 재방문을 유도하는 가장 효율적인 채널입니다. Resend는 한국 서비스에 적합한 간단한 API를 제공합니다.
+        </div>
+        <div class="code-block">
+// utils/email.ts
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Day 1: 웰컴 이메일
+export const sendWelcomeEmail = async (email: string, name: string) => {
+  await resend.emails.send({
+    from: 'Epic Fortune <hello@epicfortune.ai>',
+    to: email,
+    subject: `${name}님, 무료 체험권 3장이 지급되었습니다 🎁`,
+    html: `
+      <div style="background:#0a0e1a; color:#fff; padding:40px; font-family:sans-serif;">
+        <h1 style="color:#d4a012;">✨ Epic Fortune에 오신 것을 환영합니다</h1>
+        <p>${name}님의 사주 분석이 기다리고 있습니다.</p>
+        <p>지금 바로 <strong>무료 체험권 3장</strong>으로 사주를 확인해보세요.</p>
+        <a href="https://epicfortune.ai/ko/saju" 
+           style="background:#d4a012; color:#000; padding:12px 24px; border-radius:8px; display:inline-block; margin-top:20px; text-decoration:none; font-weight:bold;">
+          사주 분석 시작하기 →
+        </a>
+      </div>
+    `
+  });
+};
+
+// Day 3: 미사용 리마인더
+export const sendReminderEmail = async (email: string, name: string, remainingCredits: number) => {
+  await resend.emails.send({
+    from: 'Epic Fortune <hello@epicfortune.ai>',
+    to: email,
+    subject: `${name}님, 무료 체험권 ${remainingCredits}장이 아직 남아있어요`,
+    html: `...(리마인더 이메일 HTML)...`
+  });
+};
+
+// 주간 운세 뉴스레터 (매주 월요일 Cron으로 발송)
+export const sendWeeklyNewsletter = async (email: string, name: string) => {
+  const weeklyFortune = await generateWeeklyFortuneSummary(); // 이번 주 전체 운세 트렌드
+  await resend.emails.send({
+    from: 'Epic Fortune <weekly@epicfortune.ai>',
+    to: email,
+    subject: `이번 주(${getCurrentWeek()}) 운세 트렌드가 도착했습니다 🌟`,
+    html: `...(뉴스레터 HTML)...`
+  });
+};
+        </div>
+        <h4>이메일 자동화 트리거 설계</h4>
+        <table>
+            <tr>
+                <th>발송 시점</th>
+                <th>이메일 제목</th>
+                <th>목적</th>
+            </tr>
+            <tr>
+                <td>가입 직후 (Day 0)</td>
+                <td>환영합니다! 무료 체험권 3장 지급 🎁</td>
+                <td>첫 사용 유도</td>
+            </tr>
+            <tr>
+                <td>가입 3일 후 (Day 3)</td>
+                <td>체험권이 아직 남아있어요 - 오늘이 좋은 날이에요</td>
+                <td>미사용 유저 전환</td>
+            </tr>
+            <tr>
+                <td>가입 7일 후 (Day 7)</td>
+                <td>이번 주 운세 트렌드: 금전운이 강한 한 주</td>
+                <td>재방문 유도</td>
+            </tr>
+            <tr>
+                <td>매주 월요일</td>
+                <td>이번 주 운세 뉴스레터</td>
+                <td>활성 유저 유지</td>
+            </tr>
+            <tr>
+                <td>구독 만료 3일 전</td>
+                <td>구독이 곧 만료됩니다 - 갱신하고 할인 받으세요</td>
+                <td>구독 갱신</td>
+            </tr>
+        </table>
+
+        <h3>8-4. 게이미피케이션</h3>
+        <ul>
+            <li><strong>출석 체크:</strong> 7일 연속 출석 시 유료 운세 1회 무료 쿠폰 지급.</li>
+            <li><strong>업적 배지:</strong> "첫 사주 확인", "친구 초대왕", "운세 마스터" 등 배지 수집 시스템.</li>
+            <li><strong>포인트:</strong> 유료 결제 시 5% 포인트 적립, 포인트로 운세 구매 가능.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div id="section-9">
+        <h2><span class="section-num">9</span> SEO 및 마케팅 최적화 (SEO & Marketing)</h2>
+
+        <h3>9-1. SEO 구조 개선</h3>
+        <ul>
+            <li><strong>동적 메타데이터:</strong> 각 사주 풀이 결과 페이지마다 고유한 Title, Description 생성.</li>
+            <li><strong>JSON-LD:</strong> 검색엔진이 '점술 서비스'로 인식하도록 Schema.org 마크업(`Service`, `WebSite`, `FAQPage`) 적용.</li>
+            <li><strong>블로그:</strong> "도화살 뜻", "역마살 특징", "2026년 삼재띠" 등의 롱테일 키워드 콘텐츠 대량 생성.</li>
+        </ul>
+
+        <h3>9-2. 성능 최적화</h3>
+        <ul>
+            <li><strong>Core Web Vitals:</strong> LCP < 2.5s, FID < 100ms, CLS < 0.1 목표.</li>
+            <li><strong>이미지:</strong> `next/image` 사용하여 WebP 자동 변환 및 Lazy Loading 적용.</li>
+            <li><strong>코드 스플리팅:</strong> 무거운 차트 라이브러리 등은 `dynamic import`로 로딩.</li>
+        </ul>
+
+        <h3>9-3. 광고 전략</h3>
+        <ul>
+            <li><strong>메타(FB/Insta):</strong> 시각적으로 화려한 오행 차트 이미지를 소재로 활용. 2030 여성 타겟.</li>
+            <li><strong>키워드 광고:</strong> "사주" 같은 광범위한 키워드보다 "이직 운세", "재회 운세" 등 목적형 키워드 공략.</li>
+        </ul>
+
+        <h3>9-4. 핵심 타겟 키워드 목록</h3>
+        <table>
+            <tr>
+                <th>카테고리</th>
+                <th>키워드 예시</th>
+                <th>검색 의도</th>
+            </tr>
+            <tr>
+                <td>신살</td>
+                <td>도화살 뜻, 역마살 특징, 귀문관살, 백호대살</td>
+                <td>정보 탐색 → 서비스 유입</td>
+            </tr>
+            <tr>
+                <td>일간</td>
+                <td>갑목 일간 특징, 을목 여자 성격, 병화 일주</td>
+                <td>자기 분석 → 가입 유도</td>
+            </tr>
+            <tr>
+                <td>상황별</td>
+                <td>이직 운세 2026, 재회 가능성 사주, 합격 운</td>
+                <td>결제 의도 높음 (직접 구매 유도)</td>
+            </tr>
+            <tr>
+                <td>셀럽</td>
+                <td>아이유 사주, 방탄소년단 정국 운세, BTS 사주</td>
+                <td>트래픽 + 바이럴</td>
+            </tr>
+            <tr>
+                <td>시즌</td>
+                <td>2026 신년운세, 2026 띠별 운세, 2026 삼재</td>
+                <td>시즌 트래픽 급증 (1~2월)</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div id="section-10">
+        <h2><span class="section-num">10</span> 기술적 개선 사항 (Technical Improvements)</h2>
+
+        <h3>10-1. 에러 처리 고도화</h3>
+        <ul>
+            <li><strong>Global Error Boundary:</strong> `app/error.tsx` 및 `app/global-error.tsx` 구현.</li>
+            <li><strong>API Retry:</strong> AI API 호출 실패 시 지수 백오프(Exponential Backoff)로 3회 재시도.</li>
+            <li><strong>사용자 메시지:</strong> "서버 오류" 대신 "운명의 별을 읽는 중 잠시 구름이 가렸습니다. 다시 시도해주세요." 같은 감성적 메시지.</li>
+        </ul>
+
+        <h3>10-2. 분석 및 모니터링</h3>
+        <ul>
+            <li><strong>Mixpanel:</strong> 단순 PV가 아닌 사용자 행동(Event) 중심 분석 (입력 완료, 결제 전환, 공유 클릭 등).</li>
+            <li><strong>Sentry:</strong> 프론트엔드/백엔드 런타임 에러 모니터링.</li>
+            <li><strong>Vercel Analytics:</strong> 실시간 트래픽 및 성능 모니터링.</li>
+        </ul>
+        <h4>핵심 트래킹 이벤트 목록 (Mixpanel)</h4>
+        <table>
+            <tr>
+                <th>이벤트명</th>
+                <th>발생 시점</th>
+                <th>주요 Properties</th>
+            </tr>
+            <tr>
+                <td>page_viewed</td>
+                <td>페이지 방문 시</td>
+                <td>page_name, referrer, locale</td>
+            </tr>
+            <tr>
+                <td>saju_form_started</td>
+                <td>사주 폼 입력 시작</td>
+                <td>reading_type</td>
+            </tr>
+            <tr>
+                <td>saju_form_completed</td>
+                <td>폼 제출 완료</td>
+                <td>reading_type, has_birth_time</td>
+            </tr>
+            <tr>
+                <td>paywall_shown</td>
+                <td>결제 유도 화면 표시</td>
+                <td>reading_type, user_credits</td>
+            </tr>
+            <tr>
+                <td>payment_started</td>
+                <td>결제 버튼 클릭</td>
+                <td>plan, amount, reading_type</td>
+            </tr>
+            <tr>
+                <td>payment_completed</td>
+                <td>결제 성공</td>
+                <td>plan, amount, payment_method</td>
+            </tr>
+            <tr>
+                <td>share_clicked</td>
+                <td>공유 버튼 클릭</td>
+                <td>platform (kakao/insta/link)</td>
+            </tr>
+            <tr>
+                <td>referral_applied</td>
+                <td>레퍼럴 코드 적용</td>
+                <td>referral_code</td>
+            </tr>
+        </table>
+
+        <h3>10-3. A/B 테스트 프레임워크</h3>
+        <ul>
+            <li><strong>Next.js Middleware:</strong> 쿠키 기반으로 트래픽을 분산(Bucket)하여 A/B 그룹 할당.</li>
+            <li><strong>테스트 항목:</strong> 가격(9,900 vs 12,900), CTA 버튼 색상(골드 vs 레드), 온보딩 문구.</li>
+        </ul>
+        <div class="code-block">
+// middleware.ts - A/B 테스트 미들웨어
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+const AB_TESTS = {
+  pricing: {
+    variants: ['control', 'variant_a'],
+    routes: ['/ko/payment'],
+  }
+};
+
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+  
+  // 이미 그룹이 할당된 경우 유지
+  const existingGroup = request.cookies.get('ab_pricing_group')?.value;
+  
+  if (!existingGroup) {
+    // 50:50 랜덤 할당
+    const group = Math.random() < 0.5 ? 'control' : 'variant_a';
+    response.cookies.set('ab_pricing_group', group, {
+      maxAge: 60 * 60 * 24 * 30, // 30일 유지
+      httpOnly: false, // 클라이언트에서도 읽을 수 있도록
+    });
+  }
+  
+  return response;
+}
+
+// 가격 페이지에서 그룹에 따라 다른 가격 표시
+// const pricingGroup = Cookies.get('ab_pricing_group');
+// const basicPrice = pricingGroup === 'variant_a' ? 12900 : 9900;
+        </div>
+
+        <h3>10-4. 보안 강화</h3>
+        <ul>
+            <li><strong>암호화:</strong> 생년월일시 데이터는 DB 저장 시 반드시 `AES-256` 암호화.</li>
+            <li><strong>Rate Limiting:</strong> `Upstash Redis`를 사용하여 API 남용 방지 (IP당 분당 요청 제한).</li>
+            <li><strong>HMAC:</strong> BFF(Next.js)와 백엔드(FastAPI) 간 통신 시 서명 검증으로 위변조 방지.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 11 -->
+    <div id="section-11">
+        <h2><span class="section-num">11</span> 구현 우선순위 로드맵 (Implementation Roadmap)</h2>
+
+        <div class="info-box">
+            <strong>ℹ️ 로드맵 활용 방법:</strong> 각 Phase는 독립적으로 완료할 수 있으며, 앞 Phase가 완료된 후 다음 Phase를 진행하는 것이 권장됩니다. 각 Phase의 KPI를 달성한 후 다음 Phase로 진행하세요.
+        </div>
+
+        <h3>Phase 1 (Week 1-2): 수익화 핵심 <span class="badge badge-critical">긴급</span></h3>
+        <p>수익 창출을 위한 필수 기능 구현 단계입니다.</p>
+        <table>
+            <tr>
+                <th>태스크</th>
+                <th>해당 파일/컴포넌트</th>
+                <th>예상 소요 시간</th>
+            </tr>
+            <tr>
+                <td>☑ 무료 티어 재설계 (3회 평생 체험권)</td>
+                <td>lib/credits.ts, DB 마이그레이션</td>
+                <td>0.5일</td>
+            </tr>
+            <tr>
+                <td>☑ 유료 가격 인상 (3,900원~9,900원)</td>
+                <td>DB ReadingType 테이블 업데이트</td>
+                <td>0.5일</td>
+            </tr>
+            <tr>
+                <td>☑ 결과 페이지 Paywall 구현 (Blur UI)</td>
+                <td>components/readings/PaywallResult.tsx</td>
+                <td>1일</td>
+            </tr>
+            <tr>
+                <td>☑ PricingCard 컴포넌트 + 결제 페이지 리뉴얼</td>
+                <td>app/[locale]/payment/page.tsx</td>
+                <td>1일</td>
+            </tr>
+            <tr>
+                <td>☑ 카카오톡 공유 버튼 추가</td>
+                <td>utils/kakaoShare.ts, 결과 페이지</td>
+                <td>0.5일</td>
+            </tr>
+            <tr>
+                <td>☑ 이탈 방지 팝업 (Exit Intent)</td>
+                <td>hooks/useExitIntent.ts, ExitModal.tsx</td>
+                <td>0.5일</td>
+            </tr>
+        </table>
+        <div class="success-box">
+            <strong>Phase 1 KPI:</strong> 유료 전환율(CVR) > 5%, 일평균 결제건수 > 10건
+        </div>
+
+        <h3>Phase 2 (Week 3-4): 품질 &amp; 전환율</h3>
+        <p>사용자 경험을 개선하고 유료 전환을 유도합니다.</p>
+        <table>
+            <tr>
+                <th>태스크</th>
+                <th>해당 파일/컴포넌트</th>
+                <th>예상 소요 시간</th>
+            </tr>
+            <tr>
+                <td>☑ 온보딩 Step Wizard UI</td>
+                <td>components/saju/StepWizard.tsx</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ 결과 페이지 오행 차트 (Recharts)</td>
+                <td>components/charts/FiveElementsChart.tsx</td>
+                <td>1.5일</td>
+            </tr>
+            <tr>
+                <td>☑ AI 프롬프트 전면 개선</td>
+                <td>FastAPI prompts/ 디렉토리</td>
+                <td>1.5일</td>
+            </tr>
+            <tr>
+                <td>☑ TossPayments 구독 결제 (빌링키)</td>
+                <td>app/api/billing/*.ts</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ 대시보드 UI 리뉴얼</td>
+                <td>app/[locale]/dashboard/page.tsx</td>
+                <td>2일</td>
+            </tr>
+        </table>
+        <div class="success-box">
+            <strong>Phase 2 KPI:</strong> 세션당 페이지뷰수 > 4엽, 체류시간 > 3분
+        </div>
+
+        <h3>Phase 3 (Week 5-8): 성장 &amp; 바이럴</h3>
+        <p>오가닉 유입을 늘리기 위한 바이럴 장치를 마련합니다.</p>
+        <table>
+            <tr>
+                <th>태스크</th>
+                <th>해당 파일/컴포넌트</th>
+                <th>예상 소요 시간</th>
+            </tr>
+            <tr>
+                <td>☑ OG 이미지 생성 API</td>
+                <td>app/api/og/saju/route.tsx</td>
+                <td>1일</td>
+            </tr>
+            <tr>
+                <td>☑ 친구 초대 레퍼럴 시스템</td>
+                <td>lib/referral.ts, app/api/referral/*.ts</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ 셀럽 데이터베이스 확장 + SEO 페이지</td>
+                <td>data/celebrities.ts, app/[locale]/celebrity/[slug]/page.tsx</td>
+                <td>3일</td>
+            </tr>
+            <tr>
+                <td>☑ 이메일 마케팅 자동화 (Resend)</td>
+                <td>utils/email.ts, 웰컴/리마인더/뉴스레터</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ 열람 히스토리 &amp; 저장</td>
+                <td>Reading 모델, app/[locale]/mypage/history/page.tsx</td>
+                <td>1.5일</td>
+            </tr>
+        </table>
+        <div class="success-box">
+            <strong>Phase 3 KPI:</strong> 일일 신규 가입자 > 50명, 코드 공유마다 유입 > 3명
+        </div>
+
+        <h3>Phase 4 (Week 9-12): 리텐션 &amp; 확장</h3>
+        <p>재방문을 유도하고 콘텐츠를 확장합니다.</p>
+        <table>
+            <tr>
+                <th>태스크</th>
+                <th>해당 파일/컴포넌트</th>
+                <th>예상 소요 시간</th>
+            </tr>
+            <tr>
+                <td>☑ 웹 푸시 알림 (FCM + PWA)</td>
+                <td>public/manifest.json, utils/fcm.ts</td>
+                <td>3일</td>
+            </tr>
+            <tr>
+                <td>☑ 신규 리딩 타입 4개 (작명, 택일, 직업, 연간)</td>
+                <td>FastAPI routes, Next.js 페이지</td>
+                <td>5일</td>
+            </tr>
+            <tr>
+                <td>☑ 게이미피케이션 (출석체크, 배지)</td>
+                <td>DailyStreak 모델, app/api/streak/checkin</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ Mixpanel 이벤트 트래킹 전면 적용</td>
+                <td>utils/analytics.ts, 전체 페이지</td>
+                <td>2일</td>
+            </tr>
+            <tr>
+                <td>☑ A/B 테스트 (Next.js Middleware)</td>
+                <td>middleware.ts</td>
+                <td>1일</td>
+            </tr>
+        </table>
+        <div class="success-box">
+            <strong>Phase 4 KPI:</strong> DAU/MAU 비율 > 20%, 30일 리텐션율 > 40%
+        </div>
+    </div>
+
+    <!-- SECTION 12 -->
+    <div id="section-12">
+        <h2><span class="section-num">12</span> 핵심 코드 구현 가이드 (Key Implementation Guides)</h2>
+        <div class="info-box">
+            이 섹션의 코드들은 실제 프로덕션 구현에 바로 활용할 수 있는 참조 코드입니다. 각 코드 블록은 필요에 따라 프로젝트 구조에 맞게 경로를 조정하세요.
+        </div>
+
+        <h3>A. 신규 Prisma 스키마 (확장)</h3>
+        <div class="code-block">
+// prisma/schema.prisma
+
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  name          String?
+  credits       Int       @default(0)
+  subscription  String    @default("FREE") // FREE, BASIC, PREMIUM
+  billingKey    String?   // For subscription
+  
+  // Referral
+  referralCode  String    @unique @default(cuid())
+  referredBy    String?
+  
+  // Relations
+  readings      Reading[]
+  streaks       DailyStreak[]
+  feedbacks     FeedbackRating[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Reading {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  type          String    // SAJU, DAILY, COMPATIBILITY
+  inputData     Json      // Birth data
+  result        Json      // Structured result
+  fullText      String    // AI text
+  isPaid        Boolean   @default(false)
+  
+  createdAt     DateTime  @default(now())
+  @@index([userId])
+}
+
+model DailyStreak {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  lastCheckIn   DateTime
+  count         Int       @default(0)
+}
+
+model FeedbackRating {
+  id            String    @id @default(cuid())
+  readingId     String
+  score         Int       // 1 (bad) or 5 (good)
+  reason        String?
+  createdAt     DateTime  @default(now())
+}
+        </div>
+
+        <h3>B. 출석 스트릭 로직 (Gamification)</h3>
+        <div class="code-block">
+// app/api/streak/checkin/route.ts
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+
+export async function POST() {
+  const session = await getServerSession();
+  if (!session) return new NextResponse("Unauthorized", { status: 401 });
+
+  const userId = session.user.id;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const streak = await prisma.dailyStreak.findFirst({
+    where: { userId }
+  });
+
+  if (!streak) {
+    // 첫 출석
+    await prisma.dailyStreak.create({
+      data: { userId, lastCheckIn: new Date(), count: 1 }
+    });
+    return NextResponse.json({ count: 1, message: "첫 출석입니다!" });
+  }
+
+  const lastDate = new Date(streak.lastCheckIn);
+  lastDate.setHours(0, 0, 0, 0);
+  
+  const diffTime = Math.abs(today.getTime() - lastDate.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return NextResponse.json({ count: streak.count, message: "이미 출석했습니다." });
+  } else if (diffDays === 1) {
+    // 연속 출석
+    const newCount = streak.count + 1;
+    await prisma.dailyStreak.update({
+      where: { id: streak.id },
+      data: { lastCheckIn: new Date(), count: newCount }
+    });
+    
+    // 7일 연속 보상 지급
+    if (newCount % 7 === 0) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { credits: { increment: 1 } }
+      });
+      return NextResponse.json({ count: newCount, reward: true, message: "7일 연속 출석! 무료 크레딧 지급!" });
+    }
+    
+    return NextResponse.json({ count: newCount, message: "연속 출석 성공!" });
+  } else {
+    // 스트릭 끊김
+    await prisma.dailyStreak.update({
+      where: { id: streak.id },
+      data: { lastCheckIn: new Date(), count: 1 }
+    });
+    return NextResponse.json({ count: 1, message: "스트릭이 초기화되었습니다." });
+  }
+}
+        </div>
+
+        <h3>C. 레퍼럴 코드 생성 및 적용</h3>
+        <div class="code-block">
+// lib/referral.ts
+import { nanoid } from 'nanoid';
+import { prisma } from '@/lib/prisma';
+
+export const generateReferralCode = async () => {
+  let code = nanoid(8); // 8자리 랜덤 코드
+  let exists = await prisma.user.findUnique({ where: { referralCode: code } });
+  
+  // 중복 방지 루프
+  while (exists) {
+    code = nanoid(8);
+    exists = await prisma.user.findUnique({ where: { referralCode: code } });
+  }
+  return code;
+};
+
+// 가입 시 레퍼럴 적용
+export const applyReferral = async (newUserId: string, code: string) => {
+  const referrer = await prisma.user.findUnique({ where: { referralCode: code } });
+  if (!referrer) return false;
+
+  // 신규 유저 보상 (3회 무료권)
+  await prisma.user.update({
+    where: { id: newUserId },
+    data: { credits: { increment: 3 }, referredBy: referrer.id }
+  });
+
+  // 추천인 보상 (1회 프리미엄 티켓)
+  await prisma.user.update({
+    where: { id: referrer.id },
+    data: { credits: { increment: 1 } }
+  });
+
+  return true;
+};
+        </div>
+
+        <h3>D. 오행 분포 차트 컴포넌트 (Recharts)</h3>
+        <div class="code-block">
+// components/charts/FiveElementsChart.tsx
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+const ELEMENT_COLORS = {
+  wood: '#4ade80',   // 木 - 초록
+  fire: '#f87171',   // 火 - 빨강
+  earth: '#fbbf24',  // 土 - 노랑
+  metal: '#e2e8f0',  // 金 - 흰색
+  water: '#60a5fa',  // 水 - 파랑
+};
+
+const ELEMENT_LABELS = {
+  wood: '목(木) 나무',
+  fire: '화(火) 불',
+  earth: '토(土) 흙',
+  metal: '금(金) 쇠',
+  water: '수(水) 물',
+};
+
+interface FiveElementsData {
+  wood: number;
+  fire: number;
+  earth: number;
+  metal: number;
+  water: number;
+}
+
+export const FiveElementsChart = ({ elements }: { elements: FiveElementsData }) => {
+  const data = Object.entries(elements).map(([key, value]) => ({
+    name: ELEMENT_LABELS[key as keyof FiveElementsData],
+    value,
+    color: ELEMENT_COLORS[key as keyof FiveElementsData],
+  })).filter(d => d.value > 0);
+
+  const maxElement = data.reduce((a, b) => a.value > b.value ? a : b);
+  const minElement = data.reduce((a, b) => a.value < b.value ? a : b);
+
+  return (
+    <div className="bg-midnight-800 border border-midnight-700 rounded-xl p-6">
+      <h3 className="text-gold-300 font-serif text-lg mb-4">오행 분포</h3>
+      <ResponsiveContainer width="100%" height={250}>
+        <PieChart>
+          <Pie data={data} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, value }) => `${name}: ${value}`}>
+            {data.map((entry, index) => (
+              <Cell key={index} fill={entry.color} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value) => [`${value}개`, '']} />
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+        <div className="bg-midnight-700 rounded-lg p-3">
+          <span className="text-gray-400">가장 강한 기운</span>
+          <p className="text-white font-bold mt-1">{maxElement.name}</p>
+          <p className="text-gray-400 text-xs">에너지가 넘치는 영역</p>
+        </div>
+        <div className="bg-midnight-700 rounded-lg p-3">
+          <span className="text-gray-400">보완이 필요한 기운</span>
+          <p className="text-white font-bold mt-1">{minElement.name}</p>
+          <p className="text-gray-400 text-xs">의식적으로 보완하면 좋음</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+        </div>
+
+        <h3>E. Subscription Prisma 모델 (구독 결제용)</h3>
+        <div class="code-block">
+// prisma/schema.prisma 추가 모델
+
+model Subscription {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id])
+  
+  planId          String    // BASIC, PREMIUM
+  billingKey      String    // TossPayments 빌링키 (암호화 저장)
+  customerKey     String    // TossPayments 고객키
+  
+  status          String    @default("ACTIVE") // ACTIVE, PAUSED, CANCELLED
+  amount          Int       // 월 결제 금액
+  
+  nextPaymentDate DateTime  // 다음 결제일
+  lastPaymentDate DateTime? // 마지막 결제일
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@index([nextPaymentDate])
+}
+
+model SubscriptionLog {
+  id            String    @id @default(cuid())
+  subscriptionId String
+  orderId       String    @unique // TossPayments 주문 ID
+  amount        Int
+  status        String    // SUCCESS, FAILED
+  failReason    String?
+  createdAt     DateTime  @default(now())
+}
+        </div>
+
+        <h3>F. 개인정보 암호화 유틸리티</h3>
+        <div class="code-block">
+// lib/encryption.ts
+import crypto from 'crypto';
+
+const ALGORITHM = 'aes-256-gcm';
+const SECRET_KEY = Buffer.from(process.env.ENCRYPTION_KEY!, 'hex'); // 32바이트
+
+export const encrypt = (text: string): string => {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(ALGORITHM, SECRET_KEY, iv);
+  
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  
+  const authTag = cipher.getAuthTag();
+  
+  // iv:authTag:encrypted 형태로 저장
+  return `${iv.toString('hex')}:${authTag.toString('hex')}:${encrypted}`;
+};
+
+export const decrypt = (encryptedData: string): string => {
+  const [ivHex, authTagHex, encrypted] = encryptedData.split(':');
+  
+  const iv = Buffer.from(ivHex, 'hex');
+  const authTag = Buffer.from(authTagHex, 'hex');
+  const decipher = crypto.createDecipheriv(ALGORITHM, SECRET_KEY, iv);
+  decipher.setAuthTag(authTag);
+  
+  let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  
+  return decrypted;
+};
+
+// 사용 예시:
+// UserProfile 저장 시 생년월일 암호화
+// birthDate: encrypt('1995-01-15')
+// 조회 시: decrypt(profile.birthDate)
+        </div>
+
+        <h3>G. Rate Limiting (Upstash Redis)</h3>
+        <div class="code-block">
+// lib/rateLimit.ts
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, '1 m'), // 분당 10회
+});
+
+// API Route에서 사용
+export const checkRateLimit = async (identifier: string) => {
+  const { success, limit, reset, remaining } = await ratelimit.limit(identifier);
+  
+  if (!success) {
+    throw new Error(`요청이 너무 많습니다. ${Math.ceil((reset - Date.now()) / 1000)}초 후 다시 시도해주세요.`);
+  }
+  
+  return { limit, remaining };
+};
+
+// 사용 예시 (API Route):
+// const ip = request.headers.get('x-forwarded-for') || 'anonymous';
+// await checkRateLimit(`reading_${ip}`);
+        </div>
+
+        <h3>H. Mixpanel 이벤트 트래킹 유틸</h3>
+        <div class="code-block">
+// utils/analytics.ts
+import mixpanel from 'mixpanel-browser';
+
+// 초기화 (layout.tsx)
+// mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN!, { debug: process.env.NODE_ENV === 'development' });
+
+export const track = (event: string, properties?: Record<string, unknown>) => {
+  if (typeof window === 'undefined') return;
+  mixpanel.track(event, {
+    timestamp: new Date().toISOString(),
+    ...properties,
+  });
+};
+
+// 핵심 이벤트들
+export const Analytics = {
+  // 퍼널 1: 랜딩
+  pageViewed: (page: string) => track('page_viewed', { page }),
+  
+  // 퍼널 2: 입력
+  sajuFormStarted: (type: string) => track('saju_form_started', { reading_type: type }),
+  sajuFormCompleted: (type: string, hasBirthTime: boolean) => 
+    track('saju_form_completed', { reading_type: type, has_birth_time: hasBirthTime }),
+  
+  // 퍼널 3: 결과/결제
+  paywallShown: (type: string, credits: number) => 
+    track('paywall_shown', { reading_type: type, user_credits: credits }),
+  paymentStarted: (plan: string, amount: number) => 
+    track('payment_started', { plan, amount }),
+  paymentCompleted: (plan: string, amount: number, method: string) => 
+    track('payment_completed', { plan, amount, payment_method: method }),
+  
+  // 성장
+  shareClicked: (platform: string) => track('share_clicked', { platform }),
+  referralApplied: (code: string) => track('referral_applied', { referral_code: code }),
+  
+  // 리텐션
+  dailyCheckin: (streakCount: number) => track('daily_checkin', { streak_count: streakCount }),
+};
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Prepared for Claude Developer Agent | Epic Fortune Project Enhancement Plan</p>
+        <p>Last Updated: 2026-03-18 | Version 2.1 | Confidential Document</p>
+        <p style="margin-top: 10px; font-size: 0.85em; color: #999;">이 문서는 Claude AI가 Epic Fortune 개발을 이어받아 진행하기 위한 기술 참조 문서입니다. 각 섹션의 코드는 실제 프로덕션 환경에 맞게 수정하여 사용하세요.</p>
+    </div>
+
+</body>
+</html></script></div></div></div></div></div></body></html>

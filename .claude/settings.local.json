@@ -35,7 +35,19 @@
       "Bash(vercel:*)",
       "Bash(docker:*)",
       "Bash(curl:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/career/transition)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/career/stay-or-go)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/career/startup)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/career/burnout)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/marriage/timing)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/marriage/life-forecast)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/marriage/finance)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/marriage/auspicious-dates)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/pet/reading)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/pet/compatibility)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/pet/fortune)",
+      "Bash(mkdir -p C:/workspace/saju-front/saju-front/src/app/[locale]/pet/adoption)"
     ]
   }
 }

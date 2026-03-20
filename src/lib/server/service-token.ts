@@ -7,11 +7,17 @@ interface ServiceTokenPayload {
   nonce: string;
 }
 
-const SECRET_KEY = process.env.API_SECRET_KEY || "";
+function getSecretKey(): string {
+  const key = process.env.API_SECRET_KEY;
+  if (!key) {
+    throw new Error("API_SECRET_KEY environment variable is required");
+  }
+  return key;
+}
 
 function sign(payload: ServiceTokenPayload): string {
   const message = JSON.stringify(payload);
-  const hmac = createHmac("sha256", SECRET_KEY);
+  const hmac = createHmac("sha256", getSecretKey());
   hmac.update(message);
   return hmac.digest("hex");
 }

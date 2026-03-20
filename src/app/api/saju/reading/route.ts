@@ -5,6 +5,7 @@ import { streamSajuReading } from "@/lib/server/api-server-client";
 
 export async function POST(request: NextRequest) {
   const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
+  const isDevMode = process.env.DEV_MODE === "true";
 
   let effectiveUserId = "anonymous";
   let readingType = "saju_reading";
@@ -28,18 +29,20 @@ export async function POST(request: NextRequest) {
 
     effectiveUserId = userId;
 
-    const ticket = await checkTicket(userId, readingType);
-    if (!ticket.allowed) {
-      return new Response(
-        JSON.stringify({
-          error: "TicketRequired",
-          message: `Ticket required for ${readingType}`,
-          readingType,
-        }),
-        { status: 402, headers: { "Content-Type": "application/json" } }
-      );
+    if (!isDevMode) {
+      const ticket = await checkTicket(userId, readingType);
+      if (!ticket.allowed) {
+        return new Response(
+          JSON.stringify({
+            error: "TicketRequired",
+            message: `Ticket required for ${readingType}`,
+            readingType,
+          }),
+          { status: 402, headers: { "Content-Type": "application/json" } }
+        );
+      }
+      paymentId = ticket.paymentId;
     }
-    paymentId = ticket.paymentId;
   }
 
   try {

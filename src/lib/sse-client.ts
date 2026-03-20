@@ -1,4 +1,5 @@
 import type { SajuReadingRequest, SajuCalculateResponse } from "@/types/api";
+import { SajuCalculateResponseSchema } from "@/lib/schemas/api-response";
 
 export interface SSECallbacks {
   onCalculation: (data: SajuCalculateResponse) => void;
@@ -63,7 +64,8 @@ export function streamSajuReading(
             if (currentEvent === "calculation") {
               try {
                 const parsed = JSON.parse(data);
-                callbacks.onCalculation(parsed);
+                const validated = SajuCalculateResponseSchema.parse(parsed);
+                callbacks.onCalculation(validated);
               } catch {
                 // skip unparseable calculation
               }

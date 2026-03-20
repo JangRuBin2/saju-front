@@ -269,7 +269,7 @@ export default function TodayPage() {
 
           {/* 4. Interpretation card */}
           <motion.div variants={itemVariants}>
-            <InterpretCard text={fortune.interpretation} />
+            <InterpretCard interpretation={fortune.interpretation} />
           </motion.div>
 
           {/* 5. Reset button */}

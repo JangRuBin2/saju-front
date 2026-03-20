@@ -7,13 +7,27 @@ import type {
   BirthInput,
   FortuneRequest,
   CompatibilityRequest,
-} from "@/types/api";
-import type { ActionResult } from "@/lib/errors";
-import type {
   SajuCalculateResponse,
+  SajuReadingResponse,
   FortuneResponse,
   CompatibilityResponse,
+  PetReadingRequest,
+  PetReadingResponse,
+  PetCompatibilityRequest,
+  PetCompatibilityResponse,
+  PetYearlyFortuneRequest,
+  PetAdoptionTimingRequest,
+  CareerTransitionRequest,
+  CareerStayOrGoRequest,
+  CareerStartupRequest,
+  CareerBurnoutRequest,
+  MarriageTimingRequest,
+  MarriageTimingResponse,
+  MarriageLifeForecastRequest,
+  MarriageFinanceRequest,
+  MarriageAuspiciousDatesRequest,
 } from "@/types/api";
+import type { ActionResult } from "@/lib/errors";
 
 const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
 
@@ -104,8 +118,110 @@ export async function getCompatibilityAction(
 
 export async function getSinsalAction(
   birth: BirthInput
-): Promise<ActionResult<SajuCalculateResponse>> {
+): Promise<ActionResult<SajuReadingResponse>> {
   return withTicketCheck("sinsal", (userId, rt) =>
     apiServer.getSinsal(birth, userId, rt)
+  );
+}
+
+// --- Pet ---
+
+export async function getPetReadingAction(
+  request: PetReadingRequest
+): Promise<ActionResult<PetReadingResponse>> {
+  return withTicketCheck("pet_reading", (userId, rt) =>
+    apiServer.getPetReading(request, userId, rt)
+  );
+}
+
+export async function getPetCompatibilityAction(
+  request: PetCompatibilityRequest
+): Promise<ActionResult<PetCompatibilityResponse>> {
+  return withTicketCheck("pet_compatibility", (userId, rt) =>
+    apiServer.getPetCompatibility(request, userId, rt)
+  );
+}
+
+export async function getPetYearlyFortuneAction(
+  request: PetYearlyFortuneRequest
+): Promise<ActionResult<PetReadingResponse>> {
+  return withTicketCheck("pet_yearly_fortune", (userId, rt) =>
+    apiServer.getPetYearlyFortune(request, userId, rt)
+  );
+}
+
+export async function getPetAdoptionTimingAction(
+  request: PetAdoptionTimingRequest
+): Promise<ActionResult<SajuReadingResponse>> {
+  return withTicketCheck("pet_adoption_timing", (userId, rt) =>
+    apiServer.getPetAdoptionTiming(request, userId, rt)
+  );
+}
+
+// --- Career ---
+
+export async function getCareerTransitionAction(
+  request: CareerTransitionRequest
+): Promise<ActionResult<SajuReadingResponse>> {
+  return withTicketCheck("career_transition", (userId, rt) =>
+    apiServer.getCareerTransition(request, userId, rt)
+  );
+}
+
+export async function getCareerStayOrGoAction(
+  request: CareerStayOrGoRequest
+): Promise<ActionResult<SajuReadingResponse>> {
+  return withTicketCheck("career_stay_or_go", (userId, rt) =>
+    apiServer.getCareerStayOrGo(request, userId, rt)
+  );
+}
+
+export async function getCareerStartupAction(
+  request: CareerStartupRequest
+): Promise<ActionResult<SajuReadingResponse>> {
+  return withTicketCheck("career_startup", (userId, rt) =>
+    apiServer.getCareerStartup(request, userId, rt)
+  );
+}
+
+export async function getCareerBurnoutAction(
+  request: CareerBurnoutRequest
+): Promise<ActionResult<SajuReadingResponse>> {
+  return withTicketCheck("career_burnout", (userId, rt) =>
+    apiServer.getCareerBurnout(request, userId, rt)
+  );
+}
+
+// --- Marriage ---
+
+export async function getMarriageTimingAction(
+  request: MarriageTimingRequest
+): Promise<ActionResult<MarriageTimingResponse>> {
+  return withTicketCheck("marriage_timing", (userId, rt) =>
+    apiServer.getMarriageTiming(request, userId, rt)
+  );
+}
+
+export async function getMarriageLifeForecastAction(
+  request: MarriageLifeForecastRequest
+): Promise<ActionResult<MarriageTimingResponse>> {
+  return withTicketCheck("marriage_life_forecast", (userId, rt) =>
+    apiServer.getMarriageLifeForecast(request, userId, rt)
+  );
+}
+
+export async function getMarriageFinanceAction(
+  request: MarriageFinanceRequest
+): Promise<ActionResult<MarriageTimingResponse>> {
+  return withTicketCheck("marriage_finance", (userId, rt) =>
+    apiServer.getMarriageFinance(request, userId, rt)
+  );
+}
+
+export async function getMarriageAuspiciousDatesAction(
+  request: MarriageAuspiciousDatesRequest
+): Promise<ActionResult<MarriageTimingResponse>> {
+  return withTicketCheck("marriage_auspicious_dates", (userId, rt) =>
+    apiServer.getMarriageAuspiciousDates(request, userId, rt)
   );
 }

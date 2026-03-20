@@ -1,3 +1,5 @@
+// --- Common ---
+
 export interface BirthInput {
   year: number;
   month: number;
@@ -56,6 +58,21 @@ export interface SajuCalculateResponse {
   birth_time_unknown: boolean;
 }
 
+// --- Structured Interpretation ---
+
+export interface SectionData {
+  title: string;
+  content: string;
+}
+
+export interface InterpretationData {
+  summary: string;
+  sections: SectionData[];
+  disclaimer: string | null;
+}
+
+// --- Saju Reading ---
+
 export interface SajuReadingRequest {
   birth: BirthInput;
   stream?: boolean;
@@ -63,8 +80,10 @@ export interface SajuReadingRequest {
 
 export interface SajuReadingResponse {
   calculation: SajuCalculateResponse;
-  interpretation: string;
+  interpretation: InterpretationData;
 }
+
+// --- Fortune ---
 
 export interface FortuneRequest {
   birth: BirthInput;
@@ -75,9 +94,11 @@ export interface FortuneRequest {
 
 export interface FortuneResponse {
   calculation: SajuCalculateResponse;
-  interpretation: string;
+  interpretation: InterpretationData;
   target_date: string;
 }
+
+// --- Compatibility ---
 
 export interface CompatibilityRequest {
   person1: BirthInput;
@@ -87,8 +108,153 @@ export interface CompatibilityRequest {
 export interface CompatibilityResponse {
   person1: SajuCalculateResponse;
   person2: SajuCalculateResponse;
-  interpretation: string;
+  interpretation: InterpretationData;
 }
+
+// --- Pet ---
+
+export interface PetBirthInput {
+  name?: string;
+  year: number;
+  month?: number;
+  day?: number;
+  hour?: number;
+  gender: "male" | "female";
+  breed?: string;
+  size?: "small" | "medium" | "large";
+}
+
+export interface PetReadingRequest {
+  pet: PetBirthInput;
+  language?: string;
+}
+
+export interface PetReadingResponse {
+  calculation: SajuCalculateResponse;
+  interpretation: InterpretationData;
+  pillars_used: number;
+}
+
+export interface PetCompatibilityRequest {
+  owner: BirthInput;
+  pet: PetBirthInput;
+  language?: string;
+}
+
+export interface PetCompatibilityResponse {
+  owner: SajuCalculateResponse;
+  pet: SajuCalculateResponse;
+  interpretation: InterpretationData;
+  pillars_used: number;
+}
+
+export interface PetYearlyFortuneRequest {
+  pet: PetBirthInput;
+  target_year?: number;
+  language?: string;
+}
+
+export interface PetAdoptionTimingRequest {
+  owner: BirthInput;
+  target_year?: number;
+  language?: string;
+}
+
+// --- Career ---
+
+export interface CareerInfo {
+  current_industry?: string;
+  current_role?: string;
+  years_at_company?: number;
+  join_year?: number;
+  total_experience?: number;
+  concern_type?:
+    | "timing"
+    | "direction"
+    | "promotion_vs_move"
+    | "startup"
+    | "burnout"
+    | "salary";
+  target_period?: string;
+}
+
+export interface CareerTransitionRequest {
+  birth: BirthInput;
+  career_info?: CareerInfo;
+  language?: string;
+}
+
+export interface CareerStayOrGoRequest {
+  birth: BirthInput;
+  career_info?: CareerInfo;
+  language?: string;
+}
+
+export interface CareerStartupRequest {
+  birth: BirthInput;
+  career_info?: CareerInfo;
+  target_industry?: string;
+  language?: string;
+}
+
+export interface CareerBurnoutRequest {
+  birth: BirthInput;
+  career_info?: CareerInfo;
+  language?: string;
+}
+
+// --- Marriage ---
+
+export interface RelationshipInfoInput {
+  dating_start_year?: number;
+  dating_years?: number;
+  target_marriage_year?: number;
+  concern_type?:
+    | "when"
+    | "readiness"
+    | "compatibility"
+    | "family"
+    | "finance"
+    | "children";
+  living_together?: boolean;
+}
+
+export interface MarriageTimingRequest {
+  person1: BirthInput;
+  person2: BirthInput;
+  relationship_info?: RelationshipInfoInput;
+  language?: string;
+}
+
+export interface MarriageTimingResponse {
+  person1: SajuCalculateResponse;
+  person2: SajuCalculateResponse;
+  interpretation: InterpretationData;
+}
+
+export interface MarriageLifeForecastRequest {
+  person1: BirthInput;
+  person2: BirthInput;
+  marriage_year?: number;
+  language?: string;
+}
+
+export interface MarriageFinanceRequest {
+  person1: BirthInput;
+  person2: BirthInput;
+  marriage_year?: number;
+  language?: string;
+}
+
+export interface MarriageAuspiciousDatesRequest {
+  person1: BirthInput;
+  person2: BirthInput;
+  target_year?: number;
+  target_months?: number[];
+  language?: string;
+}
+
+// --- Error ---
 
 export interface ApiError {
   error: string;

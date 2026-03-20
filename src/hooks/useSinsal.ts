@@ -2,10 +2,10 @@
 
 import { useState, useCallback } from "react";
 import { getSinsalAction } from "@/lib/server/actions";
-import type { BirthInput, SajuCalculateResponse } from "@/types/api";
+import type { BirthInput, SajuReadingResponse } from "@/types/api";
 
 interface UseSinsalReturn {
-  result: SajuCalculateResponse | null;
+  result: SajuReadingResponse | null;
   isLoading: boolean;
   error: string | null;
   errorType: string | null;
@@ -14,7 +14,7 @@ interface UseSinsalReturn {
 }
 
 export function useSinsal(): UseSinsalReturn {
-  const [result, setResult] = useState<SajuCalculateResponse | null>(null);
+  const [result, setResult] = useState<SajuReadingResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [errorType, setErrorType] = useState<string | null>(null);

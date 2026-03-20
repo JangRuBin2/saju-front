@@ -70,7 +70,7 @@ export default function CompatibilityPage() {
           </GoldCard>
 
           {/* Interpretation */}
-          <InterpretCard text={result.interpretation} />
+          <InterpretCard interpretation={result.interpretation} />
 
           <GoldButton
             variant="secondary"

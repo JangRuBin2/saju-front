@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 import { checkTicket, consumePayment } from "@/lib/server/usage-limiter";
 import { streamSajuReading } from "@/lib/server/api-server-client";
+import { getCounselorById } from "@/lib/counselor-data";
 
 export async function POST(request: NextRequest) {
   const isTestMode = process.env.NEXT_PUBLIC_TEST_MODE === "true";
@@ -13,6 +14,14 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
   readingType = body.reading_type || "saju_reading";
+
+  // counselor_id가 있으면 DB(현재 정적 데이터)에서 시스템 프롬프트 조회 → Python에 주입
+  if (body.counselor_id) {
+    const counselor = getCounselorById(body.counselor_id);
+    if (counselor) {
+      body.custom_system_prompt = counselor.systemPrompt;
+    }
+  }
 
   if (isTestMode) {
     effectiveUserId = "test-user";

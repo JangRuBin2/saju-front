@@ -9,4 +9,5 @@ export interface Counselor {
   tier: CounselorTier;
   initial: string;
   accentColor: string;
+  systemPrompt: string;
 }

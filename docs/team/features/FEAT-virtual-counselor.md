@@ -396,8 +396,20 @@ messages/zh.json
   - Step 5: 4개 국어 번역 완료 (ko, en, ja, zh)
   - TypeScript 컴파일 통과
 - **현재 상태:**
-  - 프론트엔드 코드 완료, 이미지 에셋 미제공 (이니셜 아바타로 폴백)
+  - 프론트엔드 코드 완료, 이미지 에셋 완료
 - **다음 작업:**
-  - 사용자가 AI 생성 이미지 3종을 `public/images/counselors/`에 배치
+  - 백엔드(Python API)에 `counselor_id` 파라미터 수신 및 페르소나 프롬프트 주입 로직 추가
+  - 프리미엄 캐릭터 잠금/해제 로직 (Paywall 연동 시)
+
+### [2026-03-24] 세션 3
+- **완료한 작업:**
+  - AI 생성 이미지 3종 배치 완료 (나노바나나 제작)
+    - `public/images/counselors/master-yoon.png`
+    - `public/images/counselors/soyeon.png`
+    - `public/images/counselors/grandma-moon.png`
+  - `counselor-data.ts` imagePath를 .png로 업데이트
+- **현재 상태:**
+  - 상담사 캐릭터 시스템 프론트엔드 완전 완료 (코드 + 이미지)
+- **다음 작업:**
   - 백엔드(Python API)에 `counselor_id` 파라미터 수신 및 페르소나 프롬프트 주입 로직 추가
   - 프리미엄 캐릭터 잠금/해제 로직 (Paywall 연동 시)

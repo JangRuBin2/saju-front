@@ -10,8 +10,13 @@ export default function SajuInputPage() {
   const t = useTranslations("SajuForm");
   const router = useRouter();
 
-  const handleSubmit = (birthInput: BirthInput) => {
+  const handleSubmit = (birthInput: BirthInput, counselorId?: string) => {
     sessionStorage.setItem("sajuBirthInput", JSON.stringify(birthInput));
+    if (counselorId) {
+      sessionStorage.setItem("sajuCounselorId", counselorId);
+    } else {
+      sessionStorage.removeItem("sajuCounselorId");
+    }
     router.push("/saju/result");
   };
 

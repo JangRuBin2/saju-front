@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GoldCard } from "@/components/ui/GoldCard";
+import { ChatStyleResult } from "@/components/counselor/ChatStyleResult";
+import { getCounselorById } from "@/lib/counselor-data";
 import type { InterpretationData } from "@/types/api";
 
 interface InterpretCardProps {
@@ -11,13 +13,29 @@ interface InterpretCardProps {
   /** Raw text fallback for SSE streaming */
   text?: string;
   isStreaming?: boolean;
+  /** Selected counselor ID for chat-style display */
+  counselorId?: string | null;
 }
 
 export function InterpretCard({
   interpretation,
   text,
   isStreaming,
+  counselorId,
 }: InterpretCardProps) {
+  // Chat style mode when a counselor is selected
+  const counselor = counselorId ? getCounselorById(counselorId) : null;
+  if (counselor) {
+    return (
+      <ChatStyleResult
+        counselor={counselor}
+        interpretation={interpretation}
+        text={text !== undefined && !interpretation ? text : undefined}
+        isStreaming={isStreaming}
+      />
+    );
+  }
+
   // Streaming mode: show raw text
   if (text !== undefined && !interpretation) {
     return <RawTextCard text={text} isStreaming={isStreaming} />;

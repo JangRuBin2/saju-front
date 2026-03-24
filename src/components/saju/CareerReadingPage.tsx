@@ -70,6 +70,7 @@ export function CareerReadingPage({
               onSubmit={handleSubmit}
               loading={isLoading}
               submitLabel={t("analyze")}
+              showCounselorPicker={false}
             />
           </>
         )}

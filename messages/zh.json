@@ -258,6 +258,31 @@
     "analyzing": "正在分析婚姻运势...",
     "retry": "重新分析"
   },
+  "Counselor": {
+    "selectTitle": "选择命理师",
+    "selectDescription": "每位命理师都有独特的解读风格",
+    "aiNotice": "所有命理师均为AI创建的虚拟角色",
+    "aiCharacterTag": "AI角色",
+    "aiBadge": "AI生成",
+    "premiumBadge": "高级",
+    "locked": "购买高级版后可使用",
+    "disclaimer": "本内容为AI生成的娱乐内容。命理师图片为AI生成的虚拟人物，非真实人物。不能替代专业咨询。",
+    "masterYoon": {
+      "name": "尹道长",
+      "title": "传统命理师",
+      "description": "40年经验的正统命理学大师"
+    },
+    "soyeon": {
+      "name": "金素妍老师",
+      "title": "现代命理学家",
+      "description": "逻辑清晰、亲和力强的现代式解读"
+    },
+    "grandmaMoon": {
+      "name": "文奶奶",
+      "title": "人生顾问",
+      "description": "温暖的人生建议与深刻洞察"
+    }
+  },
   "Pet": {
     "readingTitle": "宠物四柱",
     "readingSubtitle": "用四柱分析宠物的性格",

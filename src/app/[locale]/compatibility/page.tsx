@@ -101,7 +101,7 @@ export default function CompatibilityPage() {
             <p className="text-center text-sm text-gold-400 font-medium mb-4">
               {t("person1")}
             </p>
-            <SajuForm onSubmit={handlePerson1Submit} />
+            <SajuForm onSubmit={handlePerson1Submit} showCounselorPicker={false} />
           </div>
         ) : (
           <div>
@@ -112,6 +112,7 @@ export default function CompatibilityPage() {
               onSubmit={handlePerson2Submit}
               loading={isLoading}
               submitLabel={t("checkCompat")}
+              showCounselorPicker={false}
             />
             <button
               onClick={() => setStep(1)}

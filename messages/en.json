@@ -258,6 +258,31 @@
     "analyzing": "Analyzing marriage fortune...",
     "retry": "Analyze Again"
   },
+  "Counselor": {
+    "selectTitle": "Choose a counselor",
+    "selectDescription": "Each counselor has a unique interpretation style",
+    "aiNotice": "All counselors are fictional AI-generated characters",
+    "aiCharacterTag": "AI Character",
+    "aiBadge": "AI Generated",
+    "premiumBadge": "Premium",
+    "locked": "Available after premium purchase",
+    "disclaimer": "This content is AI-generated entertainment. Counselor images are AI-generated fictional characters, not real people. This does not replace professional consultation.",
+    "masterYoon": {
+      "name": "Master Yoon",
+      "title": "Traditional Fortune Teller",
+      "description": "40 years of classical destiny reading"
+    },
+    "soyeon": {
+      "name": "Soyeon Kim",
+      "title": "Modern Destiny Analyst",
+      "description": "Logical and approachable modern interpretation"
+    },
+    "grandmaMoon": {
+      "name": "Grandma Moon",
+      "title": "Life Counselor",
+      "description": "Warm life advice with deep insight"
+    }
+  },
   "Pet": {
     "readingTitle": "Pet Saju Reading",
     "readingSubtitle": "Analyze your pet's personality through Saju",

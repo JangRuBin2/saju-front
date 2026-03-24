@@ -258,6 +258,31 @@
     "analyzing": "結婚運勢を分析中...",
     "retry": "再分析する"
   },
+  "Counselor": {
+    "selectTitle": "鑑定士を選んでください",
+    "selectDescription": "各鑑定士には独自の解釈スタイルがあります",
+    "aiNotice": "すべての鑑定士はAIが作成した架空のキャラクターです",
+    "aiCharacterTag": "AIキャラクター",
+    "aiBadge": "AI生成",
+    "premiumBadge": "プレミアム",
+    "locked": "プレミアム購入後に利用可能",
+    "disclaimer": "本コンテンツはAIが生成したエンターテインメントコンテンツです。鑑定士の画像はAIで生成された架空の人物であり、実在の人物ではありません。専門的な相談の代替にはなりません。",
+    "masterYoon": {
+      "name": "ユン道士",
+      "title": "伝統的な占い師",
+      "description": "40年の経験を持つ正統派命理学の大家"
+    },
+    "soyeon": {
+      "name": "キム・ソヨン先生",
+      "title": "現代命理学者",
+      "description": "論理的で親しみやすい現代式解釈"
+    },
+    "grandmaMoon": {
+      "name": "ムンおばあちゃん",
+      "title": "人生相談家",
+      "description": "温かい人生の助言と深い洞察"
+    }
+  },
   "Pet": {
     "readingTitle": "ペット四柱",
     "readingSubtitle": "ペットの性格を四柱で分析します",

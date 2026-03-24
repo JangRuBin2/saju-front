@@ -74,7 +74,7 @@ export default function PetCompatibilityPage() {
             <p className="text-center text-sm text-gold-400 font-medium mb-4">
               {t("ownerInfoTitle")}
             </p>
-            <SajuForm onSubmit={handleOwnerSubmit} />
+            <SajuForm onSubmit={handleOwnerSubmit} showCounselorPicker={false} />
           </div>
         ) : (
           <div>

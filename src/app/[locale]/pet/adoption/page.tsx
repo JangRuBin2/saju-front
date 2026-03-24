@@ -58,6 +58,7 @@ export default function PetAdoptionPage() {
               onSubmit={handleSubmit}
               loading={isLoading}
               submitLabel={t("analyze")}
+              showCounselorPicker={false}
             />
           </>
         )}

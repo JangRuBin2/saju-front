@@ -307,6 +307,7 @@ export default function TodayPage() {
             onSubmit={handleSubmit}
             loading={isLoading}
             submitLabel={t("checkFortune")}
+            showCounselorPicker={false}
           />
         )}
       </div>

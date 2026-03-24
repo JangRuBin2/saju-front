@@ -10,7 +10,8 @@ interface UseSajuReadingReturn {
   isStreaming: boolean;
   isComplete: boolean;
   error: string | null;
-  startReading: (birthInput: BirthInput) => void;
+  counselorId: string | null;
+  startReading: (birthInput: BirthInput, counselorId?: string) => void;
   reset: () => void;
 }
 
@@ -21,6 +22,7 @@ export function useSajuReading(): UseSajuReadingReturn {
   const [isStreaming, setIsStreaming] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [counselorId, setCounselorId] = useState<string | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
   const reset = useCallback(() => {
@@ -31,15 +33,17 @@ export function useSajuReading(): UseSajuReadingReturn {
     setIsStreaming(false);
     setIsComplete(false);
     setError(null);
+    setCounselorId(null);
   }, []);
 
   const startReading = useCallback(
-    (birthInput: BirthInput) => {
+    (birthInput: BirthInput, selectedCounselorId?: string) => {
       reset();
       setIsStreaming(true);
+      if (selectedCounselorId) setCounselorId(selectedCounselorId);
 
       const controller = streamSajuReading(
-        { birth: birthInput, stream: true },
+        { birth: birthInput, stream: true, counselor_id: selectedCounselorId },
         {
           onCalculation: (data) => {
             setCalculation(data);
@@ -69,6 +73,7 @@ export function useSajuReading(): UseSajuReadingReturn {
     isStreaming,
     isComplete,
     error,
+    counselorId,
     startReading,
     reset,
   };

@@ -76,6 +76,7 @@ export interface InterpretationData {
 export interface SajuReadingRequest {
   birth: BirthInput;
   stream?: boolean;
+  counselor_id?: string;
 }
 
 export interface SajuReadingResponse {

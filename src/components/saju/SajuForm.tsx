@@ -8,12 +8,14 @@ import { GoldSelect } from "@/components/ui/GoldSelect";
 import { GoldToggle } from "@/components/ui/GoldToggle";
 import { GoldCard } from "@/components/ui/GoldCard";
 import { BIRTH_HOURS, MONTHS, DAYS } from "@/lib/constants";
+import { CounselorPicker } from "@/components/counselor/CounselorPicker";
 import type { BirthInput } from "@/types/api";
 
 interface SajuFormProps {
-  onSubmit: (data: BirthInput) => void;
+  onSubmit: (data: BirthInput, counselorId?: string) => void;
   loading?: boolean;
   submitLabel?: string;
+  showCounselorPicker?: boolean;
 }
 
 interface FormErrors {
@@ -23,7 +25,7 @@ interface FormErrors {
   gender?: string;
 }
 
-export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
+export function SajuForm({ onSubmit, loading, submitLabel, showCounselorPicker = true }: SajuFormProps) {
   const t = useTranslations("SajuForm");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
@@ -32,6 +34,7 @@ export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
   const [gender, setGender] = useState("");
   const [calendarType, setCalendarType] = useState("solar");
   const [errors, setErrors] = useState<FormErrors>({});
+  const [selectedCounselorId, setSelectedCounselorId] = useState<string | null>("master-yoon");
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -78,7 +81,7 @@ export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
       calendar_type: calendarType as "solar" | "lunar",
     };
 
-    onSubmit(data);
+    onSubmit(data, selectedCounselorId ?? undefined);
   };
 
   return (
@@ -87,6 +90,14 @@ export function SajuForm({ onSubmit, loading, submitLabel }: SajuFormProps) {
         <h2 className="text-lg font-semibold text-gold-300 text-center">
           {t("title")}
         </h2>
+
+        {/* Counselor picker */}
+        {showCounselorPicker && (
+          <CounselorPicker
+            selectedId={selectedCounselorId}
+            onSelect={setSelectedCounselorId}
+          />
+        )}
 
         {/* Calendar type */}
         <div className="flex justify-center">

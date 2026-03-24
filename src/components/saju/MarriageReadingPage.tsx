@@ -106,7 +106,7 @@ export function MarriageReadingPage({
             <p className="text-center text-sm text-gold-400 font-medium mb-4">
               {t("person1Label")}
             </p>
-            <SajuForm onSubmit={handlePerson1Submit} />
+            <SajuForm onSubmit={handlePerson1Submit} showCounselorPicker={false} />
           </div>
         ) : (
           <div>
@@ -117,6 +117,7 @@ export function MarriageReadingPage({
               onSubmit={handlePerson2Submit}
               loading={isLoading}
               submitLabel={t("analyze")}
+              showCounselorPicker={false}
             />
             <button
               onClick={() => setStep(1)}

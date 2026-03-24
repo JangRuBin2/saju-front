@@ -17,7 +17,7 @@ import type { BirthInput } from "@/types/api";
 export default function SajuResultPage() {
   const t = useTranslations("SajuResult");
   const router = useRouter();
-  const { calculation, text, isStreaming, isComplete, error, startReading } =
+  const { calculation, text, isStreaming, isComplete, error, counselorId, startReading } =
     useSajuReading();
 
   useEffect(() => {
@@ -29,7 +29,8 @@ export default function SajuResultPage() {
 
     try {
       const birthInput: BirthInput = JSON.parse(stored);
-      startReading(birthInput);
+      const storedCounselorId = sessionStorage.getItem("sajuCounselorId") ?? undefined;
+      startReading(birthInput, storedCounselorId);
     } catch {
       router.push("/saju");
     }
@@ -75,7 +76,7 @@ export default function SajuResultPage() {
             {t("interpretation")}
           </h3>
           {text ? (
-            <InterpretCard text={text} isStreaming={isStreaming} />
+            <InterpretCard text={text} isStreaming={isStreaming} counselorId={counselorId} />
           ) : error ? (
             <ErrorMessage error={error} errorType="server_error" />
           ) : (

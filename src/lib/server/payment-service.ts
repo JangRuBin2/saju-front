@@ -2,6 +2,7 @@ import { prisma } from "./prisma";
 
 const TOSS_SECRET_KEY = process.env.TOSS_SECRET_KEY || "";
 const TOSS_API_URL = "https://api.tosspayments.com/v1/payments/confirm";
+const TOSS_CANCEL_URL = "https://api.tosspayments.com/v1/payments";
 
 interface TossConfirmResponse {
   paymentKey: string;
@@ -57,10 +58,12 @@ export async function confirmPayment(
   });
 
   if (!payment) {
+    await cancelTossPayment(paymentKey, "Payment record not found");
     return { success: false, error: "Payment record not found" };
   }
 
   if (payment.amount !== amount) {
+    await cancelTossPayment(paymentKey, "Amount mismatch");
     return { success: false, error: "Amount mismatch" };
   }
 
@@ -73,6 +76,22 @@ export async function confirmPayment(
   });
 
   return { success: true };
+}
+
+async function cancelTossPayment(paymentKey: string, reason: string): Promise<void> {
+  try {
+    await fetch(`${TOSS_CANCEL_URL}/${paymentKey}/cancel`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${Buffer.from(TOSS_SECRET_KEY + ":").toString("base64")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cancelReason: reason }),
+    });
+  } catch {
+    // 취소 실패는 로깅만 — 이후 수동 처리 필요
+    console.error(`[CRITICAL] Failed to cancel Toss payment ${paymentKey}: ${reason}`);
+  }
 }
 
 export async function findUnusedPayment(

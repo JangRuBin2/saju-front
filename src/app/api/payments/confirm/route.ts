@@ -10,8 +10,8 @@ export async function PUT(request: NextRequest) {
   }
 
   const { readingTypeId, amount } = await request.json();
-  if (!readingTypeId || !amount) {
-    return NextResponse.json({ error: "readingTypeId and amount are required" }, { status: 400 });
+  if (!readingTypeId || typeof amount !== "number" || !Number.isInteger(amount) || amount <= 0) {
+    return NextResponse.json({ error: "readingTypeId and a positive integer amount are required" }, { status: 400 });
   }
 
   const orderId = await createPaymentOrder(session.user.id, readingTypeId, amount);
